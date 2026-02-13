@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template Konsultan Pajak</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                700: "#062E3F",
+                600: "#0B3F46"
+              },
+              accent: "#D8AE6C",
+              secondary: {
+                500: "#8DB9DC",
+                600: "#7E9FB6"
+              },
+              neutral: "#FFFFFF"
+            },
+            fontFamily: {
+              sans: ["Poppins", "sans-serif"]
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-slate-50 text-primary-700">
+    <div class="w-full bg-neutral border-b border-slate-200">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+        <div class="flex items-center gap-3">
+          <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-700 text-neutral">
+            <i class="fa-solid fa-scale-balanced text-lg"></i>
+          </div>
+          <div>
+            <p class="text-xl font-extrabold tracking-tight text-primary-700">TaxPro Consult</p>
+            <p class="text-xs font-medium text-primary-600">Konsultan Pajak & Kepatuhan Bisnis</p>
+          </div>
+        </div>
+        <div class="hidden items-center gap-2 sm:flex">
+          <a class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-primary-700 transition hover:bg-secondary-500 hover:text-primary-700" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-primary-700 transition hover:bg-secondary-500 hover:text-primary-700" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-primary-700 transition hover:bg-secondary-500 hover:text-primary-700" href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-primary-700 transition hover:bg-secondary-500 hover:text-primary-700" href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sticky top-0 z-20 bg-primary-700 shadow-md">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 text-sm font-semibold text-neutral">
+        <div class="hidden items-center gap-6 md:flex">
+          <a href="#" class="hover:text-secondary-500">Beranda</a>
+          <a href="#" class="hover:text-secondary-500">Layanan</a>
+          <a href="#" class="hover:text-secondary-500">Regulasi Pajak</a>
+          <a href="#" class="hover:text-secondary-500">Insight</a>
+          <a href="#" class="hover:text-secondary-500">Kontak</a>
+        </div>
+        <button class="rounded-md border border-secondary-500 px-3 py-1.5 text-xs font-semibold text-secondary-500 hover:bg-secondary-500 hover:text-primary-700">
+          Konsultasi Gratis
+        </button>
+      </div>
+    </nav>
+
+    <main class="mx-auto max-w-7xl px-4 py-8">
+      <section class="grid gap-4 lg:grid-cols-3">
+        <div class="lg:col-span-2">
+          <div id="slider" class="relative h-[420px] overflow-hidden rounded-xl bg-primary-600 shadow-lg">
+            <div class="slide absolute inset-0 transition-opacity duration-500">
+              <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1400&q=80" alt="Konsultasi pajak korporasi" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary-700/95 via-primary-700/45 to-transparent"></div>
+              <div class="absolute bottom-6 left-6 right-6 text-neutral">
+                <span class="inline-block rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wide text-primary-700">Tax Update</span>
+                <h1 class="mt-4 text-3xl font-bold leading-tight">Strategi Efisiensi Pajak 2026 untuk Perusahaan Menengah dan Besar</h1>
+              </div>
+            </div>
+
+            <div class="slide absolute inset-0 opacity-0 transition-opacity duration-500">
+              <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=80" alt="Tim audit pajak" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary-700/95 via-primary-700/45 to-transparent"></div>
+              <div class="absolute bottom-6 left-6 right-6 text-neutral">
+                <span class="inline-block rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wide text-primary-700">Tax Insight</span>
+                <h2 class="mt-4 text-3xl font-bold leading-tight">Pendampingan Pemeriksaan Pajak dengan Mitigasi Risiko Berbasis Data</h2>
+              </div>
+            </div>
+
+            <div class="slide absolute inset-0 opacity-0 transition-opacity duration-500">
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1400&q=80" alt="Perencanaan transfer pricing" class="h-full w-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary-700/95 via-primary-700/45 to-transparent"></div>
+              <div class="absolute bottom-6 left-6 right-6 text-neutral">
+                <span class="inline-block rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wide text-primary-700">Transfer Pricing</span>
+                <h2 class="mt-4 text-3xl font-bold leading-tight">Persiapkan Dokumen Transfer Pricing yang Siap Uji dan Sesuai Regulasi</h2>
+              </div>
+            </div>
+
+            <button id="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-neutral/85 px-3 py-2 text-primary-700 shadow hover:bg-neutral" aria-label="Slide sebelumnya">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button id="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-neutral/85 px-3 py-2 text-primary-700 shadow hover:bg-neutral" aria-label="Slide berikutnya">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <article class="relative h-[202px] overflow-hidden rounded-xl shadow-md">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80" alt="Teknologi pelaporan pajak" class="h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-700/90 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-neutral">
+              <span class="inline-block rounded bg-accent px-3 py-1 text-xs font-bold text-primary-700">Tax Learning</span>
+              <h3 class="mt-2 text-xl font-semibold leading-snug">Panduan Coretax untuk Pelaporan Pajak Bulanan Lebih Cepat</h3>
+            </div>
+          </article>
+          <article class="relative h-[202px] overflow-hidden rounded-xl shadow-md">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80" alt="Konstruksi dan pajak" class="h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-700/90 to-transparent"></div>
+            <div class="absolute bottom-4 left-4 right-4 text-neutral">
+              <span class="inline-block rounded bg-accent px-3 py-1 text-xs font-bold text-primary-700">Tax Alert</span>
+              <h3 class="mt-2 text-xl font-semibold leading-snug">Pajak Jasa Konstruksi: Cara Menentukan Tarif dan Kode Objek Tepat</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="mt-8 grid gap-6 lg:grid-cols-3">
+        <div class="space-y-4 lg:col-span-2" id="main-articles">
+          <article class="flex flex-col gap-4 rounded-xl bg-neutral p-4 shadow-sm sm:flex-row">
+            <img src="https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&w=500&q=80" alt="Gedung pengadilan pajak" class="h-36 w-full rounded-lg object-cover sm:w-48" />
+            <div>
+              <h4 class="text-2xl font-semibold text-primary-700">Reformasi Sengketa Pajak: Proses Banding dan Gugatan Semakin Terintegrasi</h4>
+              <p class="mt-2 text-sm text-slate-500">Berita Nasional - 12 Februari 2026</p>
+            </div>
+          </article>
+          <article class="flex flex-col gap-4 rounded-xl bg-neutral p-4 shadow-sm sm:flex-row">
+            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=500&q=80" alt="Diskusi kebijakan fiskal" class="h-36 w-full rounded-lg object-cover sm:w-48" />
+            <div>
+              <h4 class="text-2xl font-semibold text-primary-700">Kebijakan Tarif Pajak 2026: Strategi Kepatuhan untuk Menjaga Cashflow</h4>
+              <p class="mt-2 text-sm text-slate-500">Berita Nasional - 10 Februari 2026</p>
+            </div>
+          </article>
+
+          <section class="my-8 rounded-xl bg-white p-6 shadow-sm">
+            <div class="mb-6 flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-white">
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <h3 class="text-xl font-bold text-primary-700">Regulasi Pajak Terbaru</h3>
+            </div>
+            <div class="space-y-3" id="tax-accordion">
+              <div class="accordion-item border border-slate-200 rounded-lg overflow-hidden">
+                <button class="accordion-trigger flex w-full items-center justify-between bg-slate-50 px-4 py-3 text-left font-semibold text-primary-700 hover:bg-slate-100 transition" aria-expanded="false" aria-controls="accordion-1">
+                  <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-lines text-accent"></i>
+                    PMK-172 Tahun 2025: Tata Cara Perubahan Data NPWP
+                  </span>
+                  <i class="fa-solid fa-chevron-down transition-transform duration-200"></i>
+                </button>
+                <div id="accordion-1" class="accordion-content hidden px-4 py-4 text-sm text-slate-600 bg-white">
+                  <p>Peraturan Menteri Keuangan ini mengatur perubahan data identitas Wajib Pajak termasuk alamat, bentuk badan hukum, dan klasifikasi lapangan usaha. Berlaku efektif 1 Januari 2026 dengan ketentuan transisi 6 bulan.</p>
+                </div>
+              </div>
+
+              <div class="accordion-item border border-slate-200 rounded-lg overflow-hidden">
+                <button class="accordion-trigger flex w-full items-center justify-between bg-slate-50 px-4 py-3 text-left font-semibold text-primary-700 hover:bg-slate-100 transition" aria-expanded="false" aria-controls="accordion-2">
+                  <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-lines text-accent"></i>
+                    SE-29/PJ/2025: Penegasan PPh Final UMKM
+                  </span>
+                  <i class="fa-solid fa-chevron-down transition-transform duration-200"></i>
+                </button>
+                <div id="accordion-2" class="accordion-content hidden px-4 py-4 text-sm text-slate-600 bg-white">
+                  <p>Surat Edaran ini menegaskan kriteria omzet bruto yang dikenai PPh final 0,5% untuk UMKM, batasan tidak dikenakan pajak, dan tata cara penggunaan PP 23 Tahun 2018.</p>
+                </div>
+              </div>
+
+              <div class="accordion-item border border-slate-200 rounded-lg overflow-hidden">
+                <button class="accordion-trigger flex w-full items-center justify-between bg-slate-50 px-4 py-3 text-left font-semibold text-primary-700 hover:bg-slate-100 transition" aria-expanded="false" aria-controls="accordion-3">
+                  <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-lines text-accent"></i>
+                    PER-22/PJ/2025: Pedoman Pemeriksaan Pajak Digital
+                  </span>
+                  <i class="fa-solid fa-chevron-down transition-transform duration-200"></i>
+                </button>
+                <div id="accordion-3" class="accordion-content hidden px-4 py-4 text-sm text-slate-600 bg-white">
+                  <p>Peraturan Direktur Jenderal Pajak ini mengatur prosedur pemeriksaan pajak secara elektronik melalui sistem e-Exam, termasuk tahapan pengiriman Surat Pemberitahuan Pemeriksaan digital.</p>
+                </div>
+              </div>
+
+              <div class="accordion-item border border-slate-200 rounded-lg overflow-hidden">
+                <button class="accordion-trigger flex w-full items-center justify-between bg-slate-50 px-4 py-3 text-left font-semibold text-primary-700 hover:bg-slate-100 transition" aria-expanded="false" aria-controls="accordion-4">
+                  <span class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-lines text-accent"></i>
+                    PMK-189 Tahun 2025: Tax Holiday untuk Investasi Strategis
+                  </span>
+                  <i class="fa-solid fa-chevron-down transition-transform duration-200"></i>
+                </button>
+                <div id="accordion-4" class="accordion-content hidden px-4 py-4 text-sm text-slate-600 bg-white">
+                  <p>Fasilitas pengurangan PPh badan untuk penanaman modal dalam bidang industri prioritas. Perpanjangan insentif hingga 20 tahun untuk investasi di sektor energi terbarukan dan hilirisasi nikel.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="space-y-4">
+            <article class="flex flex-col gap-4 rounded-xl bg-neutral p-4 shadow-sm sm:flex-row">
+              <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=500&q=80" alt="Rapat tim pajak" class="h-36 w-full rounded-lg object-cover sm:w-48" />
+              <div>
+                <h4 class="text-2xl font-semibold text-primary-700">Optimalisasi Restitusi PPN: Dokumen yang Wajib Dipersiapkan</h4>
+                <p class="mt-2 text-sm text-slate-500">Panduan Praktis - 8 Februari 2026</p>
+              </div>
+            </article>
+            <article class="flex flex-col gap-4 rounded-xl bg-neutral p-4 shadow-sm sm:flex-row">
+              <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=500&q=80" alt="Kantor pajak modern" class="h-36 w-full rounded-lg object-cover sm:w-48" />
+              <div>
+                <h4 class="text-2xl font-semibold text-primary-700">Coretax 2.0: Fitur Baru dan Cara Adaptasi untuk Perusahaan</h4>
+                <p class="mt-2 text-sm text-slate-500">Teknologi Pajak - 5 Februari 2026</p>
+              </div>
+            </article>
+            <article class="flex flex-col gap-4 rounded-xl bg-neutral p-4 shadow-sm sm:flex-row">
+              <img src="https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&w=500&q=80" alt="Analisis data keuangan" class="h-36 w-full rounded-lg object-cover sm:w-48" />
+              <div>
+                <h4 class="text-2xl font-semibold text-primary-700">Transfer Pricing Documentation: Local File vs Master File</h4>
+                <p class="mt-2 text-sm text-slate-500">Internasional Tax - 3 Februari 2026</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <aside class="space-y-6">
+          <div class="rounded-xl bg-neutral p-5 shadow-sm">
+            <div class="mb-4 flex items-center gap-2 border-b border-slate-200 pb-3">
+              <i class="fa-solid fa-star text-accent"></i>
+              <h5 class="text-lg font-bold text-primary-700">Rekomendasi Artikel</h5>
+            </div>
+            <div class="space-y-4">
+              <a href="#" class="group block">
+                <div class="flex gap-3">
+                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=150&q=80" alt="Artikel 1" class="h-16 w-16 rounded-lg object-cover" />
+                  <div>
+                    <h6 class="text-sm font-semibold text-primary-700 group-hover:text-secondary-600 transition line-clamp-2">Panduan Lengkap e-Filing SPT Tahunan 2025</h6>
+                    <p class="mt-1 text-xs text-slate-500">Tax Learning</p>
+                  </div>
+                </div>
+              </a>
+              <a href="#" class="group block">
+                <div class="flex gap-3">
+                  <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=150&q=80" alt="Artikel 2" class="h-16 w-16 rounded-lg object-cover" />
+                  <div>
+                    <h6 class="text-sm font-semibold text-primary-700 group-hover:text-secondary-600 transition line-clamp-2">5 Kesalahan Umum dalam Pelaporan PPN</h6>
+                    <p class="mt-1 text-xs text-slate-500">Tax Alert</p>
+                  </div>
+                </div>
+              </a>
+              <a href="#" class="group block">
+                <div class="flex gap-3">
+                  <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=150&q=80" alt="Artikel 3" class="h-16 w-16 rounded-lg object-cover" />
+                  <div>
+                    <h6 class="text-sm font-semibold text-primary-700 group-hover:text-secondary-600 transition line-clamp-2">Memahami PPh 21: Tarif dan Perhitungan</h6>
+                    <p class="mt-1 text-xs text-slate-500">Tax Insight</p>
+                  </div>
+                </div>
+              </a>
+              <a href="#" class="group block">
+                <div class="flex gap-3">
+                  <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=150&q=80" alt="Artikel 4" class="h-16 w-16 rounded-lg object-cover" />
+                  <div>
+                    <h6 class="text-sm font-semibold text-primary-700 group-hover:text-secondary-600 transition line-clamp-2">Strategi Tax Planning untuk Startup</h6>
+                    <p class="mt-1 text-xs text-slate-500">Business Tax</p>
+                  </div>
+                </div>
+              </a>
+              <a href="#" class="group block">
+                <div class="flex gap-3">
+                  <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=150&q=80" alt="Artikel 5" class="h-16 w-16 rounded-lg object-cover" />
+                  <div>
+                    <h6 class="text-sm font-semibold text-primary-700 group-hover:text-secondary-600 transition line-clamp-2">Pembenahan NPWP: Denda dan Sanksi yang Perlu Diketahui</h6>
+                    <p class="mt-1 text-xs text-slate-500">Tax Compliance</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-gradient-to-br from-primary-700 to-primary-600 p-5 text-white">
+            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white/20">
+              <i class="fa-solid fa-phone-volume text-xl"></i>
+            </div>
+            <h5 class="text-lg font-bold">Butuh Konsultasi?</h5>
+            <p class="mt-2 text-sm text-white/80">Tim ahli pajak kami siap membantu permasalahan perpajakan Anda.</p>
+            <button class="mt-4 w-full rounded-lg bg-accent py-2 text-sm font-semibold text-primary-700 hover:bg-accent/90 transition">
+              Hubungi Kami
+            </button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="mt-12">
+        <div class="mb-6 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-white">
+              <i class="fa-solid fa-images"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-primary-700">Galeri Kegiatan</h3>
+          </div>
+          <a href="#" class="text-sm font-semibold text-secondary-600 hover:text-primary-700 transition">Lihat Semua <i class="fa-solid fa-arrow-right ml-1"></i></a>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="group relative aspect-square overflow-hidden rounded-xl">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Seminar pajak" class="h-full w-full object-cover transition duration-300 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-700/80 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full transition duration-300 group-hover:translate-y-0">
+              <p class="text-sm font-semibold text-white">Seminar Perpajakan 2025</p>
+              <p class="text-xs text-white/70">Jakarta Convention Center</p>
+            </div>
+          </div>
+          <div class="group relative aspect-square overflow-hidden rounded-xl">
+            <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=600&q=80" alt="Workshop" class="h-full w-full object-cover transition duration-300 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-700/80 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full transition duration-300 group-hover:translate-y-0">
+              <p class="text-sm font-semibold text-white">Workshop Coretax</p>
+              <p class="text-xs text-white/70">Bandung</p>
+            </div>
+          </div>
+          <div class="group relative aspect-square overflow-hidden rounded-xl">
+            <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=600&q=80" alt="Training" class="h-full w-full object-cover transition duration-300 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-700/80 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full transition duration-300 group-hover:translate-y-0">
+              <p class="text-sm font-semibold text-white">Training PPh 21</p>
+              <p class="text-xs text-white/70">Surabaya</p>
+            </div>
+          </div>
+          <div class="group relative aspect-square overflow-hidden rounded-xl">
+            <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=600&q=80" alt="Corporate event" class="h-full w-full object-cover transition duration-300 group-hover:scale-110" />
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-700/80 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full transition duration-300 group-hover:translate-y-0">
+              <p class="text-sm font-semibold text-white">Konsultasi Korporasi</p>
+              <p class="text-xs text-white/70">Client Meeting</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-16 bg-primary-700 text-white">
+      <div class="mx-auto max-w-7xl px-4 py-12">
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-primary-700">
+                <i class="fa-solid fa-scale-balanced"></i>
+              </div>
+              <div>
+                <p class="text-lg font-extrabold">TaxPro Consult</p>
+                <p class="text-xs text-white/70">Konsultan Pajak & Kepatuhan Bisnis</p>
+              </div>
+            </div>
+            <p class="text-sm text-white/70 leading-relaxed">
+              Mitra terpercaya dalam solusi perpajakan untuk perusahaan dan individu. Memberikan layanan berkualitas dengan integritas profesional.
+            </p>
+            <div class="mt-4 flex gap-2">
+              <a href="#" class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-accent hover:text-primary-700 transition" aria-label="Instagram"><i class="fa-brands fa-instagram text-sm"></i></a>
+              <a href="#" class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-accent hover:text-primary-700 transition" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+              <a href="#" class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-accent hover:text-primary-700 transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+              <a href="#" class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-accent hover:text-primary-700 transition" aria-label="YouTube"><i class="fa-brands fa-youtube text-sm"></i></a>
+            </div>
+          </div>
+
+          <div>
+            <h5 class="mb-4 text-lg font-semibold">Tautan Cepat</h5>
+            <ul class="space-y-2 text-sm text-white/70">
+              <li><a href="#" class="hover:text-accent transition">Beranda</a></li>
+              <li><a href="#" class="hover:text-accent transition">Tentang Kami</a></li>
+              <li><a href="#" class="hover:text-accent transition">Layanan</a></li>
+              <li><a href="#" class="hover:text-accent transition">Artikel & Insight</a></li>
+              <li><a href="#" class="hover:text-accent transition">Karir</a></li>
+              <li><a href="#" class="hover:text-accent transition">Kontak</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="mb-4 text-lg font-semibold">Layanan</h5>
+            <ul class="space-y-2 text-sm text-white/70">
+              <li><a href="#" class="hover:text-accent transition">Konsultasi Pajak</a></li>
+              <li><a href="#" class="hover:text-accent transition">Pendampingan Pemeriksaan</a></li>
+              <li><a href="#" class="hover:text-accent transition">Transfer Pricing</a></li>
+              <li><a href="#" class="hover:text-accent transition">Tax Planning</a></li>
+              <li><a href="#" class="hover:text-accent transition">Sengketa Pajak</a></li>
+              <li><a href="#" class="hover:text-accent transition">Pelatihan Perpajakan</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="mb-4 text-lg font-semibold">Hubungi Kami</h5>
+            <ul class="space-y-3 text-sm text-white/70">
+              <li class="flex items-start gap-3">
+                <i class="fa-solid fa-location-dot mt-0.5 text-accent"></i>
+                <span>Jl. Sudirman No. 123, Jakarta Selatan 12190</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fa-solid fa-phone text-accent"></i>
+                <span>+62 21 1234 5678</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fa-solid fa-envelope text-accent"></i>
+                <span>info@taxproconsult.id</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <i class="fa-solid fa-clock text-accent"></i>
+                <span>Senin - Jumat: 08:00 - 17:00</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-white/10 pt-6">
+          <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <p class="text-sm text-white/50">© 2026 TaxPro Consult. Hak Cipta Dilindungi.</p>
+            <div class="flex gap-6 text-sm text-white/50">
+              <a href="#" class="hover:text-white transition">Kebijakan Privasi</a>
+              <a href="#" class="hover:text-white transition">Syarat & Ketentuan</a>
+              <a href="#" class="hover:text-white transition">Peta Situs</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      const nextBtn = document.getElementById("nextSlide");
+      const prevBtn = document.getElementById("prevSlide");
+      let activeIndex = 0;
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("opacity-0", i !== index);
+          slide.classList.toggle("opacity-100", i === index);
+        });
+      }
+
+      function nextSlide() {
+        activeIndex = (activeIndex + 1) % slides.length;
+        showSlide(activeIndex);
+      }
+
+      function prevSlide() {
+        activeIndex = (activeIndex - 1 + slides.length) % slides.length;
+        showSlide(activeIndex);
+      }
+
+      nextBtn.addEventListener("click", nextSlide);
+      prevBtn.addEventListener("click", prevSlide);
+      setInterval(nextSlide, 6000);
+      showSlide(activeIndex);
+
+      const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+      accordionTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+          const isExpanded = this.getAttribute('aria-expanded') === 'true';
+          const content = document.getElementById(this.getAttribute('aria-controls'));
+          const icon = this.querySelector('.fa-chevron-down');
+          
+          this.setAttribute('aria-expanded', !isExpanded);
+          
+          if (isExpanded) {
+            content.classList.add('hidden');
+            icon.style.transform = 'rotate(0deg)';
+          } else {
+            content.classList.remove('hidden');
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
