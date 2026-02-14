@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Activity;
 use App\Models\Article;
 use App\Models\Banner;
+use App\Models\TaxRegulation;
 use App\Observers\ActivityObserver;
 use App\Observers\ArticleObserver;
 use App\Observers\BannerObserver;
+use App\Observers\TaxRegulationObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         Article::observe(ArticleObserver::class);
         Activity::observe(ActivityObserver::class);
         Banner::observe(BannerObserver::class);
+        TaxRegulation::observe(TaxRegulationObserver::class);
     }
 
     /**

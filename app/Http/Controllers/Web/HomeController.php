@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Article;
 use App\Models\Banner;
+use App\Models\TaxRegulation;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -183,28 +184,50 @@ class HomeController extends Controller
             })
             ->all();
 
-        $regulations = [
-            [
-                'code' => 'PMK-9/2025',
-                'title' => 'Peraturan Menteri Keuangan tentang Tata Cara Pemungutan Pajak',
-                'date' => '2025-01-15',
-            ],
-            [
-                'code' => 'SE-12/2025',
-                'title' => 'Surat Edaran Dirjen Pajak terkait SPT Tahunan',
-                'date' => '2025-01-20',
-            ],
-            [
-                'code' => 'UU-HPP',
-                'title' => 'Undang-Undang Harmonisasi Peraturan Perpajakan',
-                'date' => '2024-12-28',
-            ],
-            [
-                'code' => 'PER-23/2024',
-                'title' => 'Peraturan Direktur Jenderal Pajak tentang e-Faktur',
-                'date' => '2024-12-10',
-            ],
-        ];
+        $regulations = TaxRegulation::query()
+            ->where('is_published', true)
+            ->orderBy('sort_order')
+            ->orderByDesc('published_at')
+            ->get()
+            ->map(function (TaxRegulation $taxRegulation): array {
+                $youtubeEmbedUrl = null;
+
+                if (filled($taxRegulation->youtube_url) && filter_var($taxRegulation->youtube_url, FILTER_VALIDATE_URL) !== false) {
+                    $parsedYoutubeUrl = parse_url($taxRegulation->youtube_url);
+
+                    if (is_array($parsedYoutubeUrl)) {
+                        $host = Str::lower((string) ($parsedYoutubeUrl['host'] ?? ''));
+                        $videoId = null;
+
+                        if (str_contains($host, 'youtu.be')) {
+                            $path = trim((string) ($parsedYoutubeUrl['path'] ?? ''), '/');
+                            $videoId = $path !== '' ? explode('/', $path)[0] : null;
+                        }
+
+                        if ($videoId === null && str_contains($host, 'youtube.com')) {
+                            parse_str((string) ($parsedYoutubeUrl['query'] ?? ''), $queryParams);
+                            $videoId = is_string($queryParams['v'] ?? null) ? $queryParams['v'] : null;
+                        }
+
+                        if (filled($videoId) && preg_match('/^[A-Za-z0-9_-]{11}$/', (string) $videoId)) {
+                            $youtubeEmbedUrl = 'https://www.youtube.com/embed/'.$videoId;
+                        }
+                    }
+                }
+
+                return [
+                    'title' => $taxRegulation->title,
+                    'description' => $taxRegulation->description,
+                    'document_url' => filled($taxRegulation->document_path)
+                        ? Storage::url($taxRegulation->document_path)
+                        : null,
+                    'document_name' => filled($taxRegulation->document_name)
+                        ? $taxRegulation->document_name
+                        : 'Unduh Dokumen',
+                    'youtube_embed_url' => $youtubeEmbedUrl,
+                ];
+            })
+            ->all();
 
         $galleryItems = Activity::query()
             ->with('images')
