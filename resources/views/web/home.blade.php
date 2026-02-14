@@ -34,19 +34,15 @@
 
     {{-- Headline Articles Split Section --}}
     <section class="mx-auto max-w-7xl px-4 py-8">
-        @php
-            $headlineArticle = $articles[0] ?? null;
-            $supportingArticles = array_slice($articles, 1, 2);
-        @endphp
-
-        @if($headlineArticle)
-            <div class="grid gap-4 lg:grid-cols-3">
+        @php($headlineArticle = $articles[0] ?? null)
+        <div class="grid gap-4 lg:grid-cols-3">
+            @if($headlineArticle)
                 <article class="relative overflow-hidden rounded-2xl lg:col-span-2">
                     <img src="{{ $headlineArticle['image'] }}" alt="{{ $headlineArticle['title'] }}" class="h-[420px] w-full object-cover" />
                     <div class="absolute inset-0 bg-gradient-to-t from-primary-700/95 via-primary-700/45 to-primary-700/10"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-6 text-white md:p-8">
                         <span class="inline-flex rounded-full bg-accent px-4 py-1 text-xs font-bold uppercase tracking-wide text-primary-700">
-                            {{ $headlineArticle['category'] }}
+                            {{ strtoupper($headlineArticle['category']) }}
                         </span>
                         <h2 class="mt-4 max-w-3xl text-3xl font-extrabold leading-tight md:text-5xl">
                             {{ $headlineArticle['title'] }}
@@ -60,42 +56,81 @@
                         </a>
                     </div>
                 </article>
+            @else
+                <article class="relative overflow-hidden rounded-2xl lg:col-span-2">
+                    <img src="https://placehold.co/800x420" alt="Headline artikel" class="h-[420px] w-full object-cover" />
+                </article>
+            @endif
 
-                <div class="grid gap-4">
-                    @foreach($supportingArticles as $supportArticle)
-                        <article class="group relative overflow-hidden rounded-2xl">
-                            <img src="{{ $supportArticle['image'] }}" alt="{{ $supportArticle['title'] }}" class="h-[202px] w-full object-cover transition duration-300 group-hover:scale-105" />
-                            <div class="absolute inset-0 bg-gradient-to-t from-primary-700/95 via-primary-700/40 to-primary-700/10"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
-                                <span class="inline-flex rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-primary-700">
-                                    {{ $supportArticle['category'] }}
-                                </span>
-                                <h3 class="mt-3 text-2xl font-bold leading-snug">
-                                    {{ $supportArticle['title'] }}
-                                </h3>
-                                <a href="{{ \Illuminate\Support\Facades\Route::has('articles.show') ? route('articles.show', $supportArticle['slug']) : '#' }}" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-accent transition hover:text-white">
-                                    Lihat Detail <i class="fa-solid fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </article>
-                    @endforeach
-                </div>
+            <div class="grid gap-4">
+                @foreach(array_slice($articles, 1, 2) as $article)
+                    <article class="group relative overflow-hidden rounded-2xl">
+                        <img src="{{ $article['image'] }}" alt="{{ $article['title'] }}" class="h-[202px] w-full object-cover transition duration-300 group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-700/95 via-primary-700/40 to-primary-700/10"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                            <span class="inline-flex rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-primary-700">
+                                {{ strtoupper($article['category']) }}
+                            </span>
+                            <h3 class="mt-3 text-2xl font-bold leading-snug">
+                                {{ $article['title'] }}
+                            </h3>
+                            <a href="{{ \Illuminate\Support\Facades\Route::has('articles.show') ? route('articles.show', $article['slug']) : '#' }}" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-accent transition hover:text-white">
+                                Lihat Detail <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                @endforeach
             </div>
-        @endif
+        </div>
     </section>
 
     {{-- Featured Cards Section --}}
     <section class="mx-auto max-w-7xl px-4 py-12">
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach($featuredCards as $card)
-                <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
-                        <i class="fa-solid {{ $card['icon'] }} text-xl text-primary-700"></i>
-                    </div>
-                    <h3 class="mt-4 text-lg font-semibold text-primary-700">{{ $card['title'] }}</h3>
-                    <p class="mt-2 text-sm text-slate-600">{{ $card['description'] }}</p>
+            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
+                    <i class="fa-solid fa-receipt text-xl text-primary-700"></i>
                 </div>
-            @endforeach
+                <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-secondary-600">Perencanaan</p>
+                <h3 class="mt-4 text-lg font-semibold text-primary-700">Langkah Awal Audit Pajak Internal</h3>
+                <p class="mt-2 text-sm text-slate-600">Panduan ringkas menilai risiko fiskal bisnis sebelum periode pelaporan tahunan.</p>
+                <a href="#" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary-700 transition hover:text-secondary-600">
+                    Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
+                    <i class="fa-solid fa-scale-balanced text-xl text-primary-700"></i>
+                </div>
+                <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-secondary-600">Regulasi</p>
+                <h3 class="mt-4 text-lg font-semibold text-primary-700">Update PMK yang Wajib Dipantau CFO</h3>
+                <p class="mt-2 text-sm text-slate-600">Perubahan aturan terbaru yang berdampak langsung pada kepatuhan dan strategi perusahaan.</p>
+                <a href="#" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary-700 transition hover:text-secondary-600">
+                    Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
+                    <i class="fa-solid fa-file-invoice-dollar text-xl text-primary-700"></i>
+                </div>
+                <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-secondary-600">Pelaporan</p>
+                <h3 class="mt-4 text-lg font-semibold text-primary-700">Checklist SPT Tahunan Badan</h3>
+                <p class="mt-2 text-sm text-slate-600">Susunan dokumen prioritas agar proses pelaporan lebih cepat, akurat, dan minim koreksi.</p>
+                <a href="#" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary-700 transition hover:text-secondary-600">
+                    Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
+                    <i class="fa-solid fa-chart-line text-xl text-primary-700"></i>
+                </div>
+                <p class="mt-3 text-xs font-semibold uppercase tracking-wide text-secondary-600">Strategi</p>
+                <h3 class="mt-4 text-lg font-semibold text-primary-700">Optimasi Arus Kas via Tax Planning</h3>
+                <p class="mt-2 text-sm text-slate-600">Cara menyelaraskan strategi pajak dengan perencanaan kas untuk menjaga kesehatan finansial usaha.</p>
+                <a href="#" class="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary-700 transition hover:text-secondary-600">
+                    Baca Artikel <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -106,19 +141,23 @@
             <div class="space-y-8 lg:col-span-2">
                 {{-- Articles List --}}
                 <div class="space-y-6">
-                    @foreach($articles as $article)
-                        <article class="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md sm:flex-row">
-                            <img src="{{ $article['image'] }}" alt="{{ $article['title'] }}" class="h-36 w-full rounded-lg object-cover sm:w-48" />
-                            <div class="flex flex-col justify-center">
-                                <span class="inline-block w-fit rounded bg-primary-700/10 px-3 py-1 text-xs font-semibold text-primary-700">{{ $article['category'] }}</span>
-                                <h4 class="mt-2 text-xl font-semibold text-primary-700">{{ $article['title'] }}</h4>
-                                <p class="mt-2 text-sm text-slate-600 line-clamp-2">{{ $article['excerpt'] }}</p>
-                                <div class="mt-3 flex items-center gap-3 text-xs text-slate-500">
-                                    <span><i class="fa-regular fa-calendar mr-1"></i>{{ $article['published_at'] }}</span>
-                                    <span><i class="fa-regular fa-user mr-1"></i>{{ $article['author'] }}</span>
+                    @foreach($mainArticles as $article)
+                        <a href="{{ \Illuminate\Support\Facades\Route::has('articles.show') ? route('articles.show', $article['slug']) : '#' }}" class="group block">
+                            <article class="flex flex-col gap-4 rounded-xl bg-white p-4 shadow-sm transition group-hover:shadow-md sm:flex-row">
+                                <div class="w-full shrink-0 overflow-hidden rounded-lg sm:w-52">
+                                    <img src="{{ $article['image'] }}" alt="{{ $article['title'] }}" class="h-40 w-full object-cover object-center sm:h-32" />
                                 </div>
-                            </div>
-                        </article>
+                                <div class="flex flex-col justify-center">
+                                    <span class="inline-block w-fit rounded bg-primary-700/10 px-3 py-1 text-xs font-semibold text-primary-700">{{ $article['category'] }}</span>
+                                    <h4 class="mt-2 line-clamp-2 text-xl font-semibold text-primary-700">{{ $article['title'] }}</h4>
+                                    <p class="mt-2 text-sm text-slate-600 line-clamp-2">{{ $article['excerpt'] }}</p>
+                                    <div class="mt-3 flex items-center gap-3 text-xs text-slate-500">
+                                        <span><i class="fa-regular fa-calendar mr-1"></i>{{ $article['published_at'] }}</span>
+                                        <span><i class="fa-regular fa-user mr-1"></i>{{ $article['author'] }}</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </a>
                     @endforeach
                 </div>
 
@@ -215,6 +254,31 @@
             @endforeach
         </div>
     </section>
+
+    @if(!empty($youtubeCards))
+        <section class="mx-auto max-w-7xl px-4 pb-16">
+            <div class="mb-6 flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-red-600 text-white">
+                    <i class="fa-brands fa-youtube"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-primary-700">Video YouTube</h3>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                @foreach($youtubeCards as $video)
+                    <a href="{{ $video['url'] }}" target="_blank" rel="noopener noreferrer" class="group overflow-hidden rounded-xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                        <div class="relative aspect-video overflow-hidden">
+                            <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                        </div>
+                        <div class="p-4">
+                            <p class="line-clamp-2 text-sm font-semibold text-primary-700">{{ $video['title'] }}</p>
+                            <p class="mt-1 text-xs text-slate-500">Klik untuk membuka video</p>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </section>
+    @endif
 @endsection
 
 @push('scripts')

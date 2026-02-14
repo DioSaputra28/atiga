@@ -14,4 +14,6 @@ Route::get('/kontak', [PageController::class, 'contact'])->name('contact');
 Route::get('/artikel', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/artikel/{slug}', [ArticleController::class, 'show'])->name('articles.show');
 Route::get('/training', [TrainingController::class, 'index'])->name('trainings.index');
+Route::get('/training/{slug}', [TrainingController::class, 'show'])->name('trainings.show');
 Route::get('/aktifitas', [ActivityController::class, 'index'])->name('activities.index');
+Route::get('/aktifitas/{slug}', [ActivityController::class, 'show'])->name('activities.show');

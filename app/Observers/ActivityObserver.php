@@ -17,6 +17,7 @@ class ActivityObserver
         foreach ($activity->images as $image) {
             if (! empty($image->image_path)) {
                 Storage::disk('public')->delete($image->image_path);
+                Storage::disk('local')->delete($image->image_path);
             }
         }
     }

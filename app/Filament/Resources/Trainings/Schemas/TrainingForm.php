@@ -124,6 +124,7 @@ class TrainingForm
                                 ->image()
                                 ->disk('public')
                                 ->directory('trainings/thumbnails')
+                                ->visibility('public')
                                 ->helperText('Unggah thumbnail training (JPG, PNG, WebP)'),
                         ]),
                 ]),

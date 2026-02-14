@@ -3,285 +3,375 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
-    private array $articles = [
-        [
-            'id' => 1,
-            'slug' => 'strategi-efisiensi-pajak-2026',
-            'title' => 'Strategi Efisiensi Pajak 2026 untuk Perusahaan Menengah',
-            'excerpt' => 'Panduan strategis untuk mengoptimalkan beban pajak perusahaan pada tahun 2026 sesuai regulasi terbaru.',
-            'content' => '<p>Pelaporan Surat Pemberitahuan (SPT) Tahunan merupakan kewajiban setiap Wajib Pajak di Indonesia. Tahun 2025 membawa beberapa pembaruan regulasi yang perlu diperhatikan oleh seluruh Wajib Pajak.</p>
-
-<h3>Persiapan Dokumen</h3>
-<p>Sebelum mulai melaporkan SPT, pastikan Anda telah menyiapkan dokumen-dokumen berikut:</p>
-<ul>
-<li>Bukti potong PPh 21 dari semua pemberi kerja</li>
-<li>Bukti pembayaran PPh 25 (jika ada)</li>
-<li>Dokumen pendapatan lainnya</li>
-<li>Bukti pengurang penghasilan bruto</li>
-</ul>
-
-<h3>Tata Cara Pelaporan</h3>
-<p>Anda dapat melaporkan SPT melalui:</p>
-<ol>
-<li>e-Filing melalui website DJP Online</li>
-<li>Aplikasi e-Filing Mobile</li>
-<li>Kantor Pelayanan Pajak terdekat</li>
-</ol>
-
-<p>Pastikan melaporkan sebelum batas waktu yang ditentukan untuk menghindari sanksi administrasi.</p>',
-            'image' => 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&q=80',
-            'category' => 'Perpajakan',
-            'tags' => ['SPT', 'PPh 21', 'Pelaporan Pajak', 'DJp Online'],
-            'published_at' => '2025-02-10',
-            'author' => [
-                'name' => 'Tim Redaksi',
-                'photo' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80',
-                'bio' => 'Tim editorial Konsultan Pajak Indonesia',
-            ],
-            'read_time' => '5 menit',
-        ],
-        [
-            'id' => 2,
-            'slug' => 'memahami-tax-amnesty-jilid-ii',
-            'title' => 'Memahami Tax Amnesty Jilid II: Peluang dan Risiko',
-            'excerpt' => 'Analisis mendalam tentang program pengampunan pajak terbaru dan bagaimana memanfaatkannya dengan bijak.',
-            'content' => '<p>Program Pengampunan Pajak atau Tax Amnesty kembali dihadirkan pemerintah sebagai upaya optimalisasi penerimaan negara. Program ini memberikan kesempatan kepada Wajib Pajak untuk mengungkapkan harta yang belum dilaporkan.</p>
-
-<h3>Syarat Mengikuti Tax Amnesty</h3>
-<ul>
-<li>Tidak sedang dalam proses pemeriksaan</li>
-<li>Tidak menjadi tersangka dalam perkara pidana di bidang perpajakan</li>
-<li>Memiliki NPWP aktif</li>
-<li>Mengungkapkan seluruh harta yang belum atau kurang diungkapkan</li>
-</ul>
-
-<h3>Tarif Tebusan</h3>
-<p>Tarif tebusan yang berlaku:</p>
-<ul>
-<li>Repatriasi dan investasi di Indonesia: 11-14%</li>
-<li>Tidak repatriasi tapi investasi di Indonesia: 14-18%</li>
-<li>Tidak repatriasi dan tidak investasi: 18-20%</li>
-</ul>
-
-<h3>Pertimbangan Sebelum Mengikuti</h3>
-<p>Sebelum memutuskan mengikuti program ini, perhatikan:</p>
-<ol>
-<li>Dampak terhadap struktur keuangan</li>
-<li>Kewajiban investasi yang mengikat</li>
-<li>Risiko pemeriksaan di masa depan</li>
-</ol>',
-            'image' => 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=1200&q=80',
-            'category' => 'Regulasi',
-            'tags' => ['Tax Amnesty', 'Pengampunan Pajak', 'Harta Belum Dilaporkan'],
-            'published_at' => '2025-02-08',
-            'author' => [
-                'name' => 'Budi Santoso, BKP',
-                'photo' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80',
-                'bio' => 'Konsultan Pajak dengan pengalaman 15 tahun di bidang perpajakan',
-            ],
-            'read_time' => '8 menit',
-        ],
-        [
-            'id' => 3,
-            'slug' => 'strategi-tax-planning-untuk-umkm',
-            'title' => 'Strategi Tax Planning Efektif untuk UMKM',
-            'excerpt' => 'Tips dan trik mengoptimalkan beban pajak untuk usaha kecil dan menengah sesuai ketentuan yang berlaku.',
-            'content' => '<p>Usaha Mikro, Kecil, dan Menengah (UMKM) memiliki karakteristik khusus dalam aspek perpajakan. Dengan pemahaman yang tepat, UMKM dapat mengoptimalkan beban pajak secara legal.</p>
-
-<h3>Pilihan Metode Perhitungan Pajak</h3>
-<p>UMKM dapat memilih salah satu metode:</p>
-<ul>
-<li><strong>PP 23/2018:</strong> Tarif final 0.5% dari omzet</li>
-<li><strong>Metode Norma:</strong> Menggunakan norma penghitungan penghasilan neto</li>
-<li><strong>Pencatatan:</strong> Menghitung pajak berdasarkan pembukuan</li>
-</ul>
-
-<h3>Pengurang Penghasilan Bruto</h3>
-<p>Biaya-biaya yang dapat dikurangkan:</p>
-<ul>
-<li>Biaya operasional usaha</li>
-<li>Gaji dan tunjangan karyawan</li>
-<li>Penyusutan aktiva tetap</li>
-<li>Biaya pemasaran dan promosi</li>
-</ul>
-
-<h3>Tips Tax Planning UMKM</h3>
-<ol>
-<li>Pisahkan keuangan pribadi dan usaha</li>
-<li>Lakukan pembukuan rutin</li>
-<li>Manfaatkan insentif pajak yang tersedia</li>
-<li>Konsultasikan dengan ahli pajak</li>
-</ol>',
-            'image' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80',
-            'category' => 'Bisnis',
-            'tags' => ['UMKM', 'Tax Planning', 'PP 23/2018', 'Bisnis Kecil'],
-            'published_at' => '2025-02-05',
-            'author' => [
-                'name' => 'Siti Rahayu, SE, Ak',
-                'photo' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80',
-                'bio' => 'Spesialisasi perpajakan UMKM dan startup',
-            ],
-            'read_time' => '6 menit',
-        ],
-        [
-            'id' => 4,
-            'slug' => 'pph-21-terbaru-2025',
-            'title' => 'Update PPh 21 Terbaru Tahun 2025',
-            'excerpt' => 'Perubahan tarif dan ketentuan PPh Pasal 21 yang berlaku efektif tahun 2025.',
-            'content' => '<p>PPh Pasal 21 mengalami beberapa pembaruan regulasi yang berlaku sejak awal tahun 2025. Perubahan ini mempengaruhi perhitungan pajak penghasilan bagi karyawan dan pegawai.</p>
-
-<h3>Perubahan Tarif Efektif</h3>
-<p>Tarif PPh 21 terbaru mengacu pada UU HPP dengan struktur progresif:</p>
-<ul>
-<li>Rp0 - Rp60 juta: 5%</li>
-<li>Rp60 juta - Rp250 juta: 15%</li>
-<li>Rp250 juta - Rp500 juta: 25%</li>
-<li>Rp500 juta - Rp5 miliar: 30%</li>
-<li>Di atas Rp5 miliar: 35%</li>
-</ul>
-
-<h3>PTKP Terbaru</h3>
-<p>Penghasilan Tidak Kena Pajak mengalami penyesuaian untuk mengakomodasi inflasi dan kebutuhan hidup.</p>
-
-<h3>Dampak bagi Karyawan</h3>
-<p>Karyawan perlu memahami perubahan ini untuk perencanaan keuangan yang lebih baik.</p>',
-            'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&q=80',
-            'category' => 'PPh 21',
-            'tags' => ['PPh 21', 'Gaji', 'Karyawan', 'Tarif Pajak'],
-            'published_at' => '2025-02-12',
-            'author' => [
-                'name' => 'Tim Redaksi',
-                'photo' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80',
-                'bio' => 'Tim editorial Konsultan Pajak Indonesia',
-            ],
-            'read_time' => '4 menit',
-        ],
-        [
-            'id' => 5,
-            'slug' => 'cara-hitung-pajak-digital',
-            'title' => 'Cara Menghitung Pajak Digital untuk Influencer',
-            'excerpt' => 'Panduan lengkap perhitungan pajak bagi content creator, influencer, dan pekerja digital.',
-            'content' => '<p>Era digital telah melahirkan profesi baru seperti influencer, content creator, dan pekerja remote. Profesi-profesi ini tetap memiliki kewajiban perpajakan yang perlu dipahami.</p>
-
-<h3>Jenis Penghasilan Digital</h3>
-<p>Penghasilan yang dikenai pajak meliputi:</p>
-<ul>
-<li>Pendapatan dari platform (YouTube, TikTok, Instagram)</li>
-<li>Endorsement dan brand collaboration</li>
-<li>Affiliate marketing</li>
-<li>Penjualan produk digital</li>
-<li>Donasi dan membership</li>
-</ul>
-
-<h3>Metode Perhitungan</h3>
-<p>Bagi content creator dengan omzet di bawah Rp4.8 miliar, dapat menggunakan PP 23/2018 dengan tarif 0.5%.</p>
-
-<h3>Kewajiban Pajak</h3>
-<ul>
-<li>Memiliki NPWP</li>
-<li>Melaporkan SPT Tahunan</li>
-<li>Membayar pajak terutang</li>
-</ul>',
-            'image' => 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&q=80',
-            'category' => 'Pajak Digital',
-            'tags' => ['Influencer', 'Content Creator', 'Digital Economy', 'Pajak Digital'],
-            'published_at' => '2025-02-11',
-            'author' => [
-                'name' => 'Andi Wijaya, SE',
-                'photo' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80',
-                'bio' => 'Konsultan spesialis pajak ekonomi digital',
-            ],
-            'read_time' => '7 menit',
-        ],
-        [
-            'id' => 6,
-            'slug' => 'kesalahan-umum-pelaporan-pajak',
-            'title' => '5 Kesalahan Umum dalam Pelaporan Pajak',
-            'excerpt' => 'Hindari kesalahan-kesalahan yang sering terjadi saat melaporkan pajak untuk mencegah sanksi.',
-            'content' => '<p>Banyak Wajib Pajak yang melakukan kesalahan dalam pelaporan pajak, baik disengaja maupun tidak. Kesalahan-kesalahan ini dapat berakibat pada sanksi administrasi maupun pidana.</p>
-
-<h3>1. Keliru dalam Perhitungan</h3>
-<p>Kesalahan menghitung penghasilan neto atau PTKP dapat mengakibatkan pajak terutang yang tidak tepat.</p>
-
-<h3>2. Tidak Melampirkan Bukti Potong</h3>
-<p>Bukti potong PPh 21, 23, dan lainnya harus dilampirkan sebagai dokumen pendukung.</p>
-
-<h3>3. Melaporkan Terlambat</h3>
-<p>Keterlambatan pelaporan SPT dikenakan sanksi administrasi berupa denda.</p>
-
-<h3>4. Tidak Mengungkapkan Harta</h3>
-<p>Harta yang belum atau kurang diungkapkan dapat menimbulkan masalah di kemudian hari.</p>
-
-<h3>5. Salah Memilih Kategori Pekerjaan</h3>
-<p>Kategori pekerjaan mempengaruhi besar PTKP dan pengurang penghasilan.</p>',
-            'image' => 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=1200&q=80',
-            'category' => 'Kepatuhan',
-            'tags' => ['Pelaporan Pajak', 'Kesalahan Pajak', 'Sanksi Pajak'],
-            'published_at' => '2025-02-09',
-            'author' => [
-                'name' => 'Ratna Dewi, SE, M.M',
-                'photo' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80',
-                'bio' => 'Ahli kepatuhan pajak dengan pengalaman audit',
-            ],
-            'read_time' => '5 menit',
-        ],
-    ];
-
-    public function index(): View
+    public function index(Request $request): View
     {
-        $articles = $this->articles;
-
-        $categories = [
-            ['name' => 'Perpajakan', 'count' => 12],
-            ['name' => 'Regulasi', 'count' => 8],
-            ['name' => 'Bisnis', 'count' => 6],
-            ['name' => 'PPh 21', 'count' => 5],
-            ['name' => 'Pajak Digital', 'count' => 4],
-            ['name' => 'Kepatuhan', 'count' => 7],
+        $filters = [
+            'search' => trim((string) $request->string('search')->toString()),
+            'category' => trim((string) $request->string('category')->toString()),
+            'tag' => trim((string) $request->string('tag')->toString()),
         ];
 
-        $popularTags = [
-            'SPT', 'PPh 21', 'Pajak Badan', 'UMKM', 'e-Filing',
-            'Tax Amnesty', 'PP 23/2018', 'DJp Online', 'Influencer',
-        ];
+        $articleQuery = Article::query()
+            ->with(['category', 'user', 'tags'])
+            ->published()
+            ->latestPublished();
 
-        $featuredArticle = $this->articles[1];
+        if (filled($filters['search'])) {
+            $articleQuery->where(function (Builder $query) use ($filters): void {
+                $query->where('title', 'like', '%'.$filters['search'].'%')
+                    ->orWhere('excerpt', 'like', '%'.$filters['search'].'%');
+            });
+        }
+
+        if (filled($filters['category'])) {
+            $articleQuery->whereHas('category', function (Builder $query) use ($filters): void {
+                $query->where('slug', $filters['category'])
+                    ->orWhere('name', $filters['category']);
+            });
+        }
+
+        if (filled($filters['tag'])) {
+            $articleQuery->whereHas('tags', function (Builder $query) use ($filters): void {
+                $query->where('slug', $filters['tag'])
+                    ->orWhere('name', $filters['tag']);
+            });
+        }
+
+        $featuredModel = (clone $articleQuery)
+            ->highlighted()
+            ->first();
+
+        if ($featuredModel === null) {
+            $featuredModel = (clone $articleQuery)->first();
+        }
+
+        $articles = (clone $articleQuery)
+            ->paginate(6)
+            ->through(fn (Article $article): array => $this->transformArticleCard($article))
+            ->withQueryString();
+
+        $featuredArticle = $featuredModel !== null
+            ? $this->transformArticleCard($featuredModel)
+            : null;
+
+        $categories = Category::query()
+            ->select(['id', 'name', 'slug'])
+            ->whereHas('articles', function (Builder $query): void {
+                $query->published();
+            })
+            ->withCount([
+                'articles as published_articles_count' => function (Builder $query): void {
+                    $query->published();
+                },
+            ])
+            ->orderBy('name')
+            ->get()
+            ->map(function (Category $category): array {
+                return [
+                    'name' => $category->name,
+                    'slug' => $category->slug,
+                    'count' => (int) $category->published_articles_count,
+                ];
+            })
+            ->all();
+
+        $popularTags = Tag::query()
+            ->select(['tags.id', 'tags.name', 'tags.slug'])
+            ->whereHas('articles', function (Builder $query): void {
+                $query->published();
+            })
+            ->withSum([
+                'articles as total_views' => function (Builder $query): void {
+                    $query->published();
+                },
+            ], 'view_count')
+            ->orderByDesc('total_views')
+            ->orderBy('name')
+            ->limit(12)
+            ->get()
+            ->map(function (Tag $tag): array {
+                return [
+                    'name' => $tag->name,
+                    'slug' => $tag->slug,
+                    'total_views' => (int) ($tag->total_views ?? 0),
+                ];
+            })
+            ->all();
 
         return view('web.articles.index', compact(
             'articles',
             'categories',
             'popularTags',
-            'featuredArticle'
+            'featuredArticle',
+            'filters'
         ));
     }
 
     public function show(string $slug): View
     {
-        $article = null;
-        foreach ($this->articles as $item) {
-            if ($item['slug'] === $slug) {
-                $article = $item;
-                break;
-            }
-        }
+        $articleModel = Article::query()
+            ->with(['category', 'user', 'tags'])
+            ->published()
+            ->where('slug', $slug)
+            ->firstOrFail();
 
-        if ($article === null) {
-            abort(404);
-        }
+        $articleModel->incrementViewCount();
+        $articleModel->refresh()->load(['category', 'user', 'tags']);
 
-        $relatedArticles = array_filter($this->articles, function ($item) use ($article) {
-            return $item['id'] !== $article['id'] && $item['category'] === $article['category'];
-        });
+        $relatedArticles = Article::query()
+            ->with('category')
+            ->published()
+            ->whereKeyNot($articleModel->id)
+            ->when(
+                $articleModel->category_id !== null,
+                fn (Builder $query): Builder => $query->where('category_id', $articleModel->category_id)
+            )
+            ->latestPublished()
+            ->limit(3)
+            ->get()
+            ->map(fn (Article $article): array => $this->transformArticleCard($article))
+            ->all();
 
-        $relatedArticles = array_slice($relatedArticles, 0, 3);
+        $article = $this->transformArticleDetail($articleModel);
+        $shareLinks = $this->buildShareLinks($article);
 
         return view('web.articles.show', compact(
             'article',
+            'shareLinks',
             'relatedArticles'
         ));
+    }
+
+    private function transformArticleCard(Article $article): array
+    {
+        return [
+            'id' => $article->id,
+            'slug' => $article->slug,
+            'title' => $article->title,
+            'excerpt' => $article->excerpt ?? Str::limit(strip_tags((string) $article->title), 140),
+            'image' => filled($article->thumbnail)
+                ? $this->resolveMediaUrl($article->thumbnail)
+                : 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&q=80',
+            'category' => $article->category?->name ?? 'Umum',
+            'published_at' => $article->published_at,
+            'read_time' => $this->estimateReadTime($article->getContentBlocks()),
+            'author' => [
+                'name' => $article->user?->name ?? 'Tim Redaksi',
+                'photo' => 'https://ui-avatars.com/api/?name='.urlencode($article->user?->name ?? 'Tim Redaksi').'&background=062e3f&color=d8ae6c',
+                'bio' => 'Penulis artikel Atiga.',
+            ],
+            'views' => (int) $article->view_count,
+            'tags' => $article->tags
+                ->map(fn (Tag $tag): array => ['name' => $tag->name, 'slug' => $tag->slug])
+                ->all(),
+        ];
+    }
+
+    private function transformArticleDetail(Article $article): array
+    {
+        $transformed = $this->transformArticleCard($article);
+        $transformed['content_blocks'] = $this->transformContentBlocks($article->getContentBlocks());
+
+        return $transformed;
+    }
+
+    private function transformContentBlocks(array $blocks): array
+    {
+        $transformedBlocks = [];
+
+        foreach ($blocks as $block) {
+            $type = (string) ($block['type'] ?? '');
+
+            if ($type === 'text') {
+                $rawContent = (string) $this->getBlockValue($block, 'content');
+                $plainText = trim(strip_tags($rawContent));
+
+                if ($plainText !== '') {
+                    $transformedBlocks[] = [
+                        'type' => 'text',
+                        'content' => $rawContent,
+                    ];
+                }
+
+                continue;
+            }
+
+            if ($type === 'image') {
+                $source = trim((string) $this->getBlockValue($block, 'src'));
+
+                if ($source !== '') {
+                    $transformedBlocks[] = [
+                        'type' => 'image',
+                        'src' => $this->resolveMediaUrl($source),
+                        'alt' => trim(strip_tags((string) $this->getBlockValue($block, 'alt'))) ?: 'Gambar artikel',
+                        'caption' => trim(strip_tags((string) $this->getBlockValue($block, 'caption'))),
+                    ];
+                }
+
+                continue;
+            }
+
+            if ($type === 'youtube') {
+                $url = trim((string) $this->getBlockValue($block, 'url'));
+                $embedUrl = $this->toYoutubeEmbedUrl($url);
+
+                if ($embedUrl !== null) {
+                    $transformedBlocks[] = [
+                        'type' => 'youtube',
+                        'url' => $embedUrl,
+                        'title' => trim(strip_tags((string) $this->getBlockValue($block, 'title'))) ?: 'Video YouTube',
+                    ];
+                }
+            }
+        }
+
+        return $transformedBlocks;
+    }
+
+    private function getBlockValue(array $block, string $key): mixed
+    {
+        if (array_key_exists($key, $block)) {
+            return $block[$key];
+        }
+
+        $data = $block['data'] ?? [];
+
+        if (! is_array($data)) {
+            return null;
+        }
+
+        return $data[$key] ?? null;
+    }
+
+    private function toYoutubeEmbedUrl(string $url): ?string
+    {
+        if (blank($url)) {
+            return null;
+        }
+
+        $parsed = parse_url($url);
+
+        if (! is_array($parsed)) {
+            return null;
+        }
+
+        $host = Str::lower((string) ($parsed['host'] ?? ''));
+        $videoId = null;
+
+        if (str_contains($host, 'youtu.be')) {
+            $videoId = ltrim((string) ($parsed['path'] ?? ''), '/');
+        }
+
+        if ($videoId === null && str_contains($host, 'youtube.com')) {
+            parse_str((string) ($parsed['query'] ?? ''), $query);
+            $videoId = $query['v'] ?? null;
+
+            if ($videoId === null && str_contains((string) ($parsed['path'] ?? ''), '/embed/')) {
+                $videoId = Str::after((string) $parsed['path'], '/embed/');
+            }
+        }
+
+        if (! is_string($videoId) || ! preg_match('/^[A-Za-z0-9_-]{11}$/', $videoId)) {
+            return null;
+        }
+
+        return 'https://www.youtube.com/embed/'.$videoId;
+    }
+
+    private function estimateReadTime(array $blocks): string
+    {
+        $wordCount = collect($blocks)
+            ->filter(fn (array $block): bool => (string) ($block['type'] ?? '') === 'text')
+            ->map(function (array $block): string {
+                return trim(strip_tags((string) $this->getBlockValue($block, 'content')));
+            })
+            ->implode(' ');
+
+        $minutes = max(1, (int) ceil(str_word_count($wordCount) / 200));
+
+        return $minutes.' menit';
+    }
+
+    private function resolveMediaUrl(?string $path): string
+    {
+        if (blank($path)) {
+            return '';
+        }
+
+        if (Str::startsWith($path, ['http://', 'https://'])) {
+            return $path;
+        }
+
+        return Storage::url($path);
+    }
+
+    private function buildShareLinks(array $article): array
+    {
+        $articleUrl = route('articles.show', $article['slug']);
+        $encodedArticleUrl = rawurlencode($articleUrl);
+        $encodedTitle = rawurlencode((string) $article['title']);
+
+        $links = [];
+
+        if (filled(site_social_facebook(''))) {
+            $links[] = [
+                'label' => 'Facebook',
+                'icon' => 'fa-brands fa-facebook-f',
+                'url' => 'https://www.facebook.com/sharer/sharer.php?u='.$encodedArticleUrl,
+            ];
+        }
+
+        if (filled(site_social_whatsapp(''))) {
+            $links[] = [
+                'label' => 'WhatsApp',
+                'icon' => 'fa-brands fa-whatsapp',
+                'url' => 'https://api.whatsapp.com/send?text='.$encodedTitle.'%20'.$encodedArticleUrl,
+            ];
+        }
+
+        if (filled(site_social_instagram(''))) {
+            $links[] = [
+                'label' => 'Instagram',
+                'icon' => 'fa-brands fa-instagram',
+                'url' => site_social_instagram(''),
+            ];
+        }
+
+        if (filled(site_social_threads(''))) {
+            $links[] = [
+                'label' => 'Threads',
+                'icon' => 'fa-brands fa-threads',
+                'url' => site_social_threads(''),
+            ];
+        }
+
+        if (filled(site_social_tiktok(''))) {
+            $links[] = [
+                'label' => 'TikTok',
+                'icon' => 'fa-brands fa-tiktok',
+                'url' => site_social_tiktok(''),
+            ];
+        }
+
+        if (filled(site_social_youtube(''))) {
+            $links[] = [
+                'label' => 'YouTube',
+                'icon' => 'fa-brands fa-youtube',
+                'url' => site_social_youtube(''),
+            ];
+        }
+
+        return $links;
     }
 }

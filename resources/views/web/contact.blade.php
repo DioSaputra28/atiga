@@ -131,8 +131,8 @@
                             </div>
                             <div>
                                 <h3 class="text-sm font-semibold text-primary-700">Alamat</h3>
-                                <p class="text-sm text-slate-600">{{ $contactInfo['address'] }}</p>
-                                <p class="text-sm text-slate-600">{{ $contactInfo['address_detail'] }}</p>
+                                <p class="text-sm text-slate-600">{{ $contactInfo['address'] ?? '' }}</p>
+                                <p class="text-sm text-slate-600">{{ $contactInfo['address_detail'] ?? '' }}</p>
                             </div>
                         </div>
                         
@@ -142,7 +142,7 @@
                             </div>
                             <div>
                                 <h3 class="text-sm font-semibold text-primary-700">Telepon</h3>
-                                <p class="text-sm text-slate-600">{{ $contactInfo['phone'] }}</p>
+                                <p class="text-sm text-slate-600">{{ $contactInfo['phone'] ?? '' }}</p>
                             </div>
                         </div>
                         
@@ -152,7 +152,7 @@
                             </div>
                             <div>
                                 <h3 class="text-sm font-semibold text-primary-700">WhatsApp</h3>
-                                <p class="text-sm text-slate-600">{{ $contactInfo['whatsapp'] }}</p>
+                                <p class="text-sm text-slate-600">{{ $contactInfo['whatsapp'] ?? '' }}</p>
                             </div>
                         </div>
                         
@@ -162,7 +162,7 @@
                             </div>
                             <div>
                                 <h3 class="text-sm font-semibold text-primary-700">Email</h3>
-                                <p class="text-sm text-slate-600">{{ $contactInfo['email'] }}</p>
+                                <p class="text-sm text-slate-600">{{ $contactInfo['email'] ?? '' }}</p>
                             </div>
                         </div>
                         
@@ -172,7 +172,7 @@
                             </div>
                             <div>
                                 <h3 class="text-sm font-semibold text-primary-700">Jam Operasional</h3>
-                                <p class="text-sm text-slate-600">{{ $contactInfo['hours'] }}</p>
+                                <p class="text-sm text-slate-600">{{ $contactInfo['hours'] ?? '' }}</p>
                             </div>
                         </div>
                     </div>
@@ -180,6 +180,9 @@
                 
                 {{-- Quick Action Card --}}
                 <div class="rounded-2xl bg-gradient-to-br from-accent to-yellow-500 p-6 text-primary-700 md:p-8">
+                    @php
+                        $usesWhatsappContactAction = str_starts_with($contactActionUrl, 'https://wa.me/');
+                    @endphp
                     <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-700/20">
                         <i class="fa-solid fa-comments text-xl"></i>
                     </div>
@@ -188,13 +191,15 @@
                         Hubungi kami langsung via WhatsApp untuk respons lebih cepat terkait kebutuhan perpajakan Anda.
                     </p>
                     <a 
-                        href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $contactInfo['whatsapp']) }}" 
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        href="{{ $contactActionUrl }}"
+                        target="{{ $usesWhatsappContactAction ? '_blank' : '_self' }}"
+                        @if ($usesWhatsappContactAction)
+                            rel="noopener noreferrer"
+                        @endif
                         class="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-600"
                     >
-                        <i class="fa-brands fa-whatsapp"></i>
-                        Chat WhatsApp
+                        <i class="{{ $usesWhatsappContactAction ? 'fa-brands fa-whatsapp' : 'fa-solid fa-envelope' }}"></i>
+                        {{ $usesWhatsappContactAction ? 'Chat WhatsApp' : 'Kirim Email' }}
                     </a>
                 </div>
             </div>

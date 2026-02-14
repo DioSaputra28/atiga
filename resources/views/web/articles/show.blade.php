@@ -2,6 +2,78 @@
 
 @section('title', $article['title'].' - Atiga')
 
+@push('styles')
+<style>
+    .article-rich-content > * + * {
+        margin-top: 1rem;
+    }
+
+    .article-rich-content :is(h1, h2, h3, h4, h5, h6) {
+        color: #062E3F;
+        font-weight: 700;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .article-rich-content p {
+        line-height: 1.8;
+        color: #334155;
+    }
+
+    .article-rich-content strong,
+    .article-rich-content b {
+        font-weight: 700;
+    }
+
+    .article-rich-content em,
+    .article-rich-content i {
+        font-style: italic;
+    }
+
+    .article-rich-content ul,
+    .article-rich-content ol {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .article-rich-content ul {
+        list-style-type: disc;
+    }
+
+    .article-rich-content ul ul {
+        list-style-type: circle;
+    }
+
+    .article-rich-content ol {
+        list-style-type: decimal;
+    }
+
+    .article-rich-content ol ol {
+        list-style-type: lower-alpha;
+    }
+
+    .article-rich-content li {
+        margin: 0.35rem 0;
+        color: #334155;
+    }
+
+    .article-rich-content blockquote {
+        margin: 1rem 0;
+        border-left: 4px solid #D8AE6C;
+        padding: 0.5rem 0 0.5rem 1rem;
+        color: #475569;
+        font-style: italic;
+        background-color: #f8fafc;
+    }
+
+    .article-rich-content a {
+        color: #2E7A94;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+</style>
+@endpush
+
 @section('content')
 <section class="bg-slate-50 py-10">
     <div class="mx-auto max-w-7xl px-4">
@@ -36,8 +108,33 @@
 <section class="bg-white py-12">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 lg:grid-cols-3">
         <article class="lg:col-span-2">
-            <div class="prose prose-slate max-w-none prose-headings:text-primary-700 prose-a:text-secondary-600 prose-strong:text-primary-700">
-                {!! $article['content'] !!}
+            <div class="article-rich-content max-w-none text-slate-700">
+                @forelse($article['content_blocks'] as $block)
+                    @if($block['type'] === 'text')
+                        <div>{!! $block['content'] !!}</div>
+                    @elseif($block['type'] === 'image')
+                        <figure>
+                            <img src="{{ $block['src'] }}" alt="{{ $block['alt'] }}" class="w-full rounded-xl object-cover">
+                            @if(filled($block['caption']))
+                                <figcaption>{{ $block['caption'] }}</figcaption>
+                            @endif
+                        </figure>
+                    @elseif($block['type'] === 'youtube')
+                        <div class="aspect-video overflow-hidden rounded-xl bg-slate-100">
+                            <iframe
+                                src="{{ $block['url'] }}"
+                                title="{{ $block['title'] }}"
+                                class="h-full w-full"
+                                loading="lazy"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                    @endif
+                @empty
+                    <p>Konten artikel belum tersedia.</p>
+                @endforelse
             </div>
 
             @if(!empty($article['tags']))
@@ -45,20 +142,25 @@
                     <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Tag</h3>
                     <div class="flex flex-wrap gap-2">
                         @foreach($article['tags'] as $tag)
-                            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">#{{ $tag }}</span>
+                            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">#{{ $tag['name'] }}</span>
                         @endforeach
                     </div>
                 </div>
             @endif
 
-            <div class="mt-8 border-t border-slate-200 pt-6">
-                <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Bagikan</h3>
-                <div class="flex items-center gap-2">
-                    <button type="button" class="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">Facebook</button>
-                    <button type="button" class="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">LinkedIn</button>
-                    <button type="button" class="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">X</button>
+            @if(! empty($shareLinks))
+                <div class="mt-8 border-t border-slate-200 pt-6">
+                    <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">Bagikan</h3>
+                    <div class="flex flex-wrap items-center gap-2">
+                        @foreach($shareLinks as $share)
+                            <a href="{{ $share['url'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 transition hover:bg-slate-100 hover:text-primary-700">
+                                <i class="{{ $share['icon'] }}"></i>
+                                <span>{{ $share['label'] }}</span>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
 
             <div class="mt-8">
                 <a href="{{ Route::has('articles.index') ? route('articles.index') : '#' }}" class="inline-flex items-center gap-2 rounded-xl bg-primary-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-primary-600">

@@ -208,14 +208,21 @@ class PageController extends Controller
 
     public function contact(): View
     {
+        $whatsappNumber = preg_replace('/\D+/', '', (string) site_social_whatsapp(''));
+        $companyEmail = site_company_email('');
+
         $contactInfo = [
-            'address' => 'Gedung Graha Pajak, Lantai 12',
-            'address_detail' => 'Jl. Sudirman Kav. 52-53, Jakarta Selatan 12190',
-            'phone' => '+62 21 525-1234',
-            'whatsapp' => '+62 812-3456-7890',
-            'email' => 'info@konsultanpajak.id',
-            'hours' => 'Senin - Jumat: 08.00 - 17.00 WIB',
+            'address' => site_company_location(''),
+            'address_detail' => '',
+            'phone' => site_phone_number(''),
+            'whatsapp' => site_social_whatsapp(''),
+            'email' => $companyEmail,
+            'hours' => site_operational_hours(''),
         ];
+
+        $contactActionUrl = $whatsappNumber !== ''
+            ? "https://wa.me/{$whatsappNumber}"
+            : "mailto:{$companyEmail}";
 
         $officeLocations = [
             [
@@ -256,6 +263,7 @@ class PageController extends Controller
 
         return view('web.contact', compact(
             'contactInfo',
+            'contactActionUrl',
             'officeLocations',
             'faqItems'
         ));

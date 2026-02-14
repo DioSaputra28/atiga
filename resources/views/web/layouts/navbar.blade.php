@@ -1,12 +1,28 @@
+@php
+    $companyName = site_company_name('Atiga');
+    $companyLogo = site_company_logo();
+    $companyLogoUrl = null;
+
+    if (filled($companyLogo)) {
+        $companyLogoUrl = str_starts_with($companyLogo, 'http://') || str_starts_with($companyLogo, 'https://')
+            ? $companyLogo
+            : \Illuminate\Support\Facades\Storage::url($companyLogo);
+    }
+@endphp
+
 {{-- Top Info Bar --}}
 <div class="w-full bg-white border-b border-slate-200">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
         <div class="flex items-center gap-3">
-            <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-700 text-white">
-                <i class="fa-solid fa-scale-balanced text-lg"></i>
-            </div>
+            @if ($companyLogoUrl)
+                <img src="{{ $companyLogoUrl }}" alt="{{ $companyName }}" class="h-11 w-11 rounded-lg object-cover">
+            @else
+                <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-700 text-white">
+                    <i class="fa-solid fa-scale-balanced text-lg"></i>
+                </div>
+            @endif
             <div>
-                <p class="text-xl font-extrabold tracking-tight text-primary-700">Atiga</p>
+                <p class="text-xl font-extrabold tracking-tight text-primary-700">{{ $companyName }}</p>
                 <p class="text-xs font-medium text-primary-600">Konsultan Pajak & Kepatuhan Bisnis</p>
             </div>
         </div>

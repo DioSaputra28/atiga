@@ -42,12 +42,14 @@ class Setting extends SettingsPage
                                 ->image()
                                 ->disk('public')
                                 ->directory('settings/logo')
+                                ->visibility('public')
                                 ->maxSize(2048)
                                 ->helperText('Upload logo utama (JPG, PNG, WebP). Maksimal 2MB.'),
                             FileUpload::make('company_favicon')
                                 ->label('Favicon Website')
                                 ->disk('public')
                                 ->directory('settings/favicon')
+                                ->visibility('public')
                                 ->acceptedFileTypes([
                                     'image/png',
                                     'image/svg+xml',

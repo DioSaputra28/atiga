@@ -144,7 +144,7 @@
                         </div>
                         <h2 class="text-xl font-bold text-primary-700 md:text-2xl">Semua Artikel</h2>
                     </div>
-                    <span class="text-sm text-slate-500">{{ count($articles) }} artikel tersedia</span>
+                    <span class="text-sm text-slate-500">{{ $articles->total() }} artikel tersedia</span>
                 </div>
 
                 {{-- Articles Grid --}}
@@ -198,25 +198,8 @@
                 </div>
 
                 {{-- Pagination Placeholder --}}
-                <div class="flex justify-center pt-4">
-                    <nav class="flex items-center gap-2">
-                        <button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-400 cursor-not-allowed" disabled>
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        <button class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-white font-semibold">
-                            1
-                        </button>
-                        <button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
-                            2
-                        </button>
-                        <button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
-                            3
-                        </button>
-                        <span class="text-slate-400">...</span>
-                        <button class="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                    </nav>
+                <div class="pt-4">
+                    {{ $articles->links() }}
                 </div>
             </div>
 
@@ -227,12 +210,26 @@
                     <h3 class="mb-4 text-lg font-bold text-primary-700">
                         <i class="fa-solid fa-magnifying-glass mr-2 text-accent"></i>Cari Artikel
                     </h3>
-                    <form action="#" method="GET" class="relative">
-                        <input type="text" name="search" placeholder="Ketik kata kunci..." class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-12 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20">
+                    <form action="{{ Route::has('articles.index') ? route('articles.index') : '/artikel' }}" method="GET" class="relative">
+                        <input type="text" name="search" value="{{ $filters['search'] }}" placeholder="Ketik kata kunci..." class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-12 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20">
+                        @if(filled($filters['category']))
+                            <input type="hidden" name="category" value="{{ $filters['category'] }}">
+                        @endif
+                        @if(filled($filters['tag']))
+                            <input type="hidden" name="tag" value="{{ $filters['tag'] }}">
+                        @endif
                         <button type="submit" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-accent p-2 text-primary-700 transition hover:bg-accent/80">
                             <i class="fa-solid fa-arrow-right text-sm"></i>
                         </button>
                     </form>
+
+                    @if(filled($filters['search']) || filled($filters['category']) || filled($filters['tag']))
+                        <div class="mt-3 text-center">
+                            <a href="{{ Route::has('articles.index') ? route('articles.index') : '/artikel' }}" class="inline-flex items-center gap-2 text-sm font-medium text-red-500 hover:text-red-600 transition">
+                                <i class="fa-solid fa-xmark"></i> Reset Filter
+                            </a>
+                        </div>
+                    @endif
                 </div>
 
                 {{-- Categories --}}
@@ -243,7 +240,7 @@
                     <ul class="space-y-1">
                         @foreach($categories as $category)
                         <li>
-                            <a href="#" class="category-item flex items-center justify-between rounded-lg px-3 py-2.5 text-sm text-slate-600">
+                            <a href="{{ Route::has('articles.index') ? route('articles.index', array_filter(['search' => $filters['search'], 'category' => $category['slug'], 'tag' => $filters['tag']])) : '#' }}" class="category-item flex items-center justify-between rounded-lg px-3 py-2.5 text-sm {{ $filters['category'] === $category['slug'] ? 'bg-primary-700/5 text-primary-700' : 'text-slate-600' }}">
                                 <span class="font-medium">{{ $category['name'] }}</span>
                                 <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">{{ $category['count'] }}</span>
                             </a>
@@ -259,8 +256,8 @@
                     </h3>
                     <div class="flex flex-wrap gap-2">
                         @foreach($popularTags as $tag)
-                        <a href="#" class="tag-pill rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600">
-                            {{ $tag }}
+                        <a href="{{ Route::has('articles.index') ? route('articles.index', array_filter(['search' => $filters['search'], 'category' => $filters['category'], 'tag' => $tag['slug']])) : '#' }}" class="tag-pill rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium {{ $filters['tag'] === $tag['slug'] ? 'border-primary-700 text-primary-700' : 'text-slate-600' }}">
+                            #{{ $tag['name'] }}
                         </a>
                         @endforeach
                     </div>

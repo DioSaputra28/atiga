@@ -100,6 +100,7 @@ class ArticleForm
                                                 ->image()
                                                 ->disk('public')
                                                 ->directory('articles/content')
+                                                ->visibility('public')
                                                 ->required()
                                                 ->helperText('Unggah gambar untuk konten artikel'),
                                         ])
@@ -129,6 +130,7 @@ class ArticleForm
                                 ->required()
                                 ->disk('public')
                                 ->directory('articles/thumbnails')
+                                ->visibility('public')
                                 ->helperText('Unggah gambar thumbnail artikel (JPG, PNG, WebP)')
                                 ->columnSpanFull(),
                         ])

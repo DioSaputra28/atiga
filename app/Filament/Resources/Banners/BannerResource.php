@@ -63,6 +63,9 @@ class BannerResource extends Resource
                             ->helperText('Tipe banner, contoh: hero, sidebar, footer, popup'),
                         FileUpload::make('image_path')
                             ->image()
+                            ->disk('public')
+                            ->directory('banners')
+                            ->visibility('public')
                             ->required()
                             ->columnSpanFull()
                             ->helperText('Unggah gambar banner dalam format JPG, PNG, atau WebP. Disarankan ukuran 1200x400px'),

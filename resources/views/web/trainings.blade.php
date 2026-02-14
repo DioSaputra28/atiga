@@ -84,45 +84,17 @@
 <section class="bg-slate-50 py-12">
     <div class="mx-auto max-w-7xl px-4">
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-700 text-white">
-                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+            @foreach($stats as $stat)
+                <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
+                    <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-700 text-white">
+                        <i class="fa-solid {{ $stat['icon'] }} text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-extrabold text-primary-700">{{ $stat['number'] }}</p>
+                        <p class="text-sm font-medium text-slate-500">{{ $stat['label'] }}</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="text-3xl font-extrabold text-primary-700">{{ count($trainings) }}</p>
-                    <p class="text-sm font-medium text-slate-500">Program Training</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-700 text-white">
-                    <i class="fa-solid fa-certificate text-2xl"></i>
-                </div>
-                <div>
-                    <p class="text-3xl font-extrabold text-primary-700">3</p>
-                    <p class="text-sm font-medium text-slate-500">Level Sertifikasi</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-700 text-white">
-                    <i class="fa-solid fa-users text-2xl"></i>
-                </div>
-                <div>
-                    <p class="text-3xl font-extrabold text-primary-700">500+</p>
-                    <p class="text-sm font-medium text-slate-500">Alumni Terlatih</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-700 text-white">
-                    <i class="fa-solid fa-star text-2xl"></i>
-                </div>
-                <div>
-                    <p class="text-3xl font-extrabold text-primary-700">4.9</p>
-                    <p class="text-sm font-medium text-slate-500">Rating Peserta</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -142,41 +114,47 @@
             </p>
         </div>
         
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid items-start gap-8 md:grid-cols-2 lg:grid-cols-3">
             @foreach($trainings as $training)
-            <div class="training-card group overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-100">
+            <div class="training-card group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
                 {{-- Image --}}
                 <div class="relative h-52 overflow-hidden">
-                    <img src="{{ $training['image'] }}" alt="{{ $training['title'] }}" class="training-image h-full w-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary-700/60 to-transparent"></div>
+                    <a href="{{ route('trainings.show', $training['slug']) }}" class="block h-full">
+                        <img src="{{ $training['image'] }}" alt="{{ $training['title'] }}" class="training-image h-full w-full object-cover">
+                    </a>
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary-700/60 to-transparent"></div>
                     
                     {{-- Badges --}}
                     <div class="absolute top-4 left-4 flex flex-wrap gap-2">
+                        @if($training['is_featured'])
                         <span class="rounded-full bg-accent px-3 py-1 text-xs font-bold text-primary-700">
-                            {{ $training['category'] }}
+                            Unggulan
                         </span>
-                        <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary-700">
-                            {{ $training['level'] }}
+                        @endif
+                        <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $training['status'] === 'ongoing' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700' }}">
+                            {{ ucfirst($training['status']) }}
                         </span>
                     </div>
                     
                     {{-- Price Badge --}}
                     <div class="absolute bottom-4 right-4">
                         <div class="rounded-lg bg-white px-3 py-2 text-center shadow-lg">
-                            <p class="text-xs text-slate-500 line-through">{{ $training['price'] }}</p>
-                            <p class="text-lg font-bold text-primary-700">{{ $training['discounted_price'] }}</p>
+                            <p class="text-lg font-bold text-primary-700">{{ $training['price'] }}</p>
                         </div>
                     </div>
                 </div>
                 
                 {{-- Content --}}
-                <div class="p-6">
-                    <h3 class="mb-2 text-xl font-bold text-primary-700">{{ $training['title'] }}</h3>
-                    <p class="mb-4 text-sm font-medium text-accent">{{ $training['subtitle'] }}</p>
-                    <p class="mb-4 text-sm text-slate-600 line-clamp-2">{{ $training['description'] }}</p>
+                <div class="flex flex-col p-6">
+                    <h3 class="mb-2 text-xl font-bold text-primary-700 line-clamp-2">
+                        <a href="{{ route('trainings.show', $training['slug']) }}" class="transition hover:text-secondary-600">
+                            {{ $training['title'] }}
+                        </a>
+                    </h3>
+                    <p class="mb-3 text-sm text-slate-600 line-clamp-3">{{ $training['description'] }}</p>
                     
                     {{-- Meta Info --}}
-                    <div class="mb-4 flex flex-wrap gap-3 text-xs text-slate-500">
+                    <div class="mb-3 flex flex-wrap gap-3 text-xs text-slate-500">
                         <span class="flex items-center gap-1">
                             <i class="fa-regular fa-clock text-accent"></i>
                             {{ $training['duration'] }}
@@ -194,99 +172,29 @@
                     {{-- Schedule --}}
                     <div class="mb-4 rounded-lg bg-slate-50 p-3">
                         <p class="mb-2 text-xs font-semibold text-slate-500">Jadwal Tersedia:</p>
-                        <div class="space-y-1">
-                            @foreach($training['upcoming_dates'] as $date)
-                            <div class="flex items-center justify-between text-xs">
-                                <span class="text-slate-700">{{ $date['date'] }}</span>
-                                <span class="rounded-full {{ $date['registered'] >= $date['quota'] ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600' }} px-2 py-0.5 font-medium">
-                                    {{ $date['registered'] }}/{{ $date['quota'] }} peserta
-                                </span>
-                            </div>
-                            @endforeach
-                        </div>
+                        <p class="text-xs text-slate-700">{{ $training['schedule'] }}</p>
                     </div>
                     
                     {{-- CTA --}}
-                    <a href="#" class="flex w-full items-center justify-center gap-2 rounded-xl bg-primary-700 py-3 text-sm font-bold text-white transition-all hover:bg-primary-600 hover:shadow-lg">
-                        <i class="fa-solid fa-user-plus"></i>
-                        Daftar Sekarang
+                    @if(filled($training['registration_link']))
+                        <a href="{{ $training['registration_link'] }}" class="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary-700 py-3 text-sm font-bold text-white transition-all hover:bg-primary-600 hover:shadow-lg">
+                            <i class="fa-solid fa-user-plus"></i>
+                            Daftar Sekarang
+                        </a>
+                    @else
+                        <span class="mt-2 flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-slate-200 py-3 text-sm font-bold text-slate-500">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Informasi Pendaftaran Menyusul
+                        </span>
+                    @endif
+
+                    <a href="{{ route('trainings.show', $training['slug']) }}" class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-100">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Lihat Detail
                     </a>
                 </div>
             </div>
             @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- Categories & Levels --}}
-<section class="bg-slate-50 py-20">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="grid gap-12 lg:grid-cols-2">
-            {{-- Categories --}}
-            <div>
-                <div class="mb-8">
-                    <span class="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-primary-700">
-                        Kategori Program
-                    </span>
-                    <h2 class="text-2xl font-bold text-primary-700">
-                        Pilih Berdasarkan <span class="text-accent">Kategori</span>
-                    </h2>
-                </div>
-                
-                <div class="space-y-4">
-                    @foreach($categories as $category)
-                    <div class="category-card flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                        <div class="flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-primary-700 to-primary-600 text-white">
-                            <i class="fa-solid {{ $category['icon'] }} text-2xl"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-lg font-bold text-primary-700">{{ $category['name'] }}</h3>
-                            <p class="text-sm text-slate-500">{{ $category['count'] }} program tersedia</p>
-                        </div>
-                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-primary-700 transition-colors hover:bg-accent">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-            
-            {{-- Levels --}}
-            <div>
-                <div class="mb-8">
-                    <span class="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-primary-700">
-                        Tingkat Kesulitan
-                    </span>
-                    <h2 class="text-2xl font-bold text-primary-700">
-                        Sesuaikan dengan <span class="text-accent">Level Anda</span>
-                    </h2>
-                </div>
-                
-                <div class="space-y-4">
-                    @foreach($levels as $index => $level)
-                    @php
-                        $colors = [
-                            'from-green-500 to-green-600',
-                            'from-yellow-500 to-yellow-600',
-                            'from-red-500 to-red-600'
-                        ];
-                        $icons = ['fa-seedling', 'fa-layer-group', 'fa-mountain'];
-                    @endphp
-                    <div class="category-card flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                        <div class="flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br {{ $colors[$index] }} text-white">
-                            <i class="fa-solid {{ $icons[$index] }} text-2xl"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-lg font-bold text-primary-700">{{ $level['name'] }}</h3>
-                            <p class="text-sm text-slate-500">{{ $level['count'] }} program tersedia</p>
-                        </div>
-                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-primary-700 transition-colors hover:bg-accent">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </div>
 </section>

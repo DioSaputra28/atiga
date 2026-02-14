@@ -78,6 +78,9 @@ class ActivityForm
                                 ->schema([
                                     FileUpload::make('image_path')
                                         ->image()
+                                        ->disk('public')
+                                        ->directory('activities')
+                                        ->visibility('public')
                                         ->required()
                                         ->columnSpanFull()
                                         ->helperText('Unggah gambar dokumentasi kegiatan'),
