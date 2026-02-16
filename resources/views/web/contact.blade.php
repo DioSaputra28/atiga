@@ -4,23 +4,23 @@
 
 @section('content')
 {{-- Hero Section --}}
-<section class="bg-gradient-to-br from-primary-700 to-primary-600 py-16 md:py-24">
+<section class="bg-gradient-to-br from-primary-700 to-primary-600 py-12 md:py-24">
     <div class="mx-auto max-w-7xl px-4 text-center">
-        <h1 class="text-3xl font-extrabold text-white md:text-5xl">
+        <h1 class="text-2xl font-extrabold text-white text-balance sm:text-3xl md:text-5xl">
             Hubungi Kami
         </h1>
-        <p class="mx-auto mt-4 max-w-2xl text-base text-white/80 md:text-lg">
+        <p class="mx-auto mt-4 max-w-2xl text-sm text-pretty text-white/80 sm:text-base md:text-lg">
             Tim ahli pajak kami siap membantu kebutuhan perpajakan Anda. Jangan ragu untuk menghubungi kami melalui formulir atau informasi kontak di bawah.
         </p>
     </div>
 </section>
 
 {{-- Contact Form & Info Section --}}
-<section class="py-16">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="grid gap-8 lg:grid-cols-2">
+<section class="overflow-x-clip py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="grid gap-6 overflow-x-clip lg:grid-cols-2 lg:gap-8">
             {{-- Contact Form --}}
-            <div class="rounded-2xl bg-white p-6 shadow-lg md:p-8">
+            <div class="rounded-2xl bg-white p-4 shadow-lg sm:p-6 md:p-8">
                 <div class="mb-6 flex items-center gap-3">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-700 text-white">
                         <i class="fa-solid fa-paper-plane"></i>
@@ -29,7 +29,7 @@
                 </div>
                 
                 <form action="#" method="POST" class="space-y-5">
-                    <div class="grid gap-5 md:grid-cols-2">
+                    <div class="grid gap-4 sm:gap-5 md:grid-cols-2">
                         <div>
                             <label for="name" class="mb-2 block text-sm font-medium text-primary-700">
                                 Nama Lengkap <span class="text-red-500">*</span>
@@ -39,7 +39,7 @@
                                 id="name" 
                                 name="name" 
                                 required
-                                class="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 sm:px-4 sm:py-3"
                                 placeholder="Masukkan nama lengkap"
                             >
                         </div>
@@ -52,13 +52,13 @@
                                 id="email" 
                                 name="email" 
                                 required
-                                class="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 sm:px-4 sm:py-3"
                                 placeholder="email@example.com"
                             >
                         </div>
                     </div>
                     
-                    <div class="grid gap-5 md:grid-cols-2">
+                    <div class="grid gap-4 sm:gap-5 md:grid-cols-2">
                         <div>
                             <label for="phone" class="mb-2 block text-sm font-medium text-primary-700">
                                 Nomor Telepon
@@ -67,7 +67,7 @@
                                 type="tel" 
                                 id="phone" 
                                 name="phone"
-                                class="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 sm:px-4 sm:py-3"
                                 placeholder="+62 xxx xxxx xxxx"
                             >
                         </div>
@@ -79,7 +79,7 @@
                                 id="subject" 
                                 name="subject" 
                                 required
-                                class="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-primary-700 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                                class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-primary-700 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 sm:px-4 sm:py-3"
                             >
                                 <option value="">Pilih subjek</option>
                                 <option value="konsultasi">Konsultasi Pajak</option>
@@ -99,14 +99,14 @@
                             name="message" 
                             rows="5" 
                             required
-                            class="w-full resize-none rounded-lg border border-slate-300 px-4 py-3 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                            class="w-full resize-none rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 sm:px-4 sm:py-3"
                             placeholder="Tuliskan pesan atau pertanyaan Anda..."
                         ></textarea>
                     </div>
                     
                     <button 
                         type="submit"
-                        class="w-full rounded-lg bg-primary-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-700/30"
+                        class="w-full min-h-[44px] rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-700/30 sm:px-6 sm:py-3"
                     >
                         <i class="fa-solid fa-paper-plane mr-2"></i>
                         Kirim Pesan
@@ -116,7 +116,7 @@
             
             {{-- Contact Info --}}
             <div class="space-y-6">
-                <div class="rounded-2xl bg-white p-6 shadow-lg md:p-8">
+                <div class="rounded-2xl bg-white p-4 shadow-lg sm:p-6 md:p-8">
                     <div class="mb-6 flex items-center gap-3">
                         <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-primary-700">
                             <i class="fa-solid fa-address-card"></i>
@@ -207,65 +207,9 @@
     </div>
 </section>
 
-{{-- Office Locations Section --}}
-<section class="bg-white py-16">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="mb-10 text-center">
-            <div class="mb-4 flex justify-center">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-700 text-white">
-                    <i class="fa-solid fa-building"></i>
-                </div>
-            </div>
-            <h2 class="text-2xl font-bold text-primary-700 md:text-3xl">Lokasi Kantor Kami</h2>
-            <p class="mx-auto mt-3 max-w-2xl text-slate-600">
-                Kunjungi kantor kami di lokasi terdekat. Kami hadir di beberapa kota besar di Indonesia.
-            </p>
-        </div>
-        
-        <div class="grid gap-8 lg:grid-cols-3">
-            @foreach($officeLocations as $location)
-                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
-                    {{-- Map Embed --}}
-                    <div class="relative h-48 w-full bg-slate-100">
-                        <iframe
-                            src="{{ $location['map_embed'] }}"
-                            width="100%"
-                            height="100%"
-                            style="border:0;"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            class="absolute inset-0"
-                            title="Peta {{ $location['name'] }}"
-                        ></iframe>
-                    </div>
-                    
-                    {{-- Location Info --}}
-                    <div class="p-6">
-                        <h3 class="text-lg font-bold text-primary-700">{{ $location['name'] }}</h3>
-                        <div class="mt-3 flex items-start gap-3">
-                            <i class="fa-solid fa-location-dot mt-1 text-accent"></i>
-                            <p class="text-sm text-slate-600">{{ $location['address'] }}</p>
-                        </div>
-                        <a 
-                            href="https://maps.google.com/?q={{ urlencode($location['address']) }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary-700 hover:text-accent transition"
-                        >
-                            <i class="fa-solid fa-map-location-dot"></i>
-                            Lihat di Google Maps
-                        </a>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
 {{-- FAQ Section --}}
-<section class="py-16" data-faq-accordion>
-    <div class="mx-auto max-w-3xl px-4">
+<section class="overflow-x-clip py-12 sm:py-16" data-faq-accordion>
+    <div class="mx-auto max-w-3xl px-3 sm:px-4">
         <div class="mb-10 text-center">
             <div class="mb-4 flex justify-center">
                 <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-700 text-white">
@@ -286,7 +230,7 @@
                 >
                     <button
                         data-faq-trigger
-                        class="flex w-full items-center justify-between px-5 py-4 text-left transition hover:bg-slate-50"
+                        class="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition hover:bg-slate-50 sm:px-5 sm:py-4"
                         aria-expanded="false"
                     >
                         <span class="pr-4 text-sm font-semibold text-primary-700 md:text-base">

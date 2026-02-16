@@ -49,9 +49,9 @@
         <div class="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-secondary-500 blur-3xl"></div>
     </div>
     
-    <div class="relative mx-auto max-w-7xl px-4 py-20 md:py-28">
+    <div class="relative mx-auto max-w-7xl px-3 py-12 sm:px-4 sm:py-16 md:py-24 lg:py-28">
         {{-- Breadcrumb --}}
-        <nav class="mb-8 flex items-center gap-2 text-sm text-white/60">
+        <nav class="mb-6 flex items-center gap-1.5 text-xs text-white/60 sm:mb-8 sm:gap-2 sm:text-sm">
             <a href="{{ Route::has('home') ? route('home') : '/' }}" class="hover:text-accent transition">Beranda</a>
             <i class="fa-solid fa-chevron-right text-xs"></i>
             <span class="text-accent">Training</span>
@@ -59,14 +59,14 @@
         
         {{-- Hero Content --}}
         <div class="max-w-3xl">
-            <span class="mb-4 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-accent">
+            <span class="mb-3 inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold text-accent sm:mb-4 sm:px-4 sm:text-sm">
                 Pelatihan & Sertifikasi
             </span>
-            <h1 class="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
+            <h1 class="mb-4 text-3xl font-extrabold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
                 Tingkatkan Kompetensi<br>
                 <span class="text-accent">Perpajakan Anda</span>
             </h1>
-            <p class="max-w-2xl text-lg text-white/80 leading-relaxed">
+            <p class="max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
                 Program pelatihan dan sertifikasi perpajakan yang komprehensif, dipandu oleh instruktur berpengalaman untuk membantu Anda menguasai aspek perpajakan Indonesia.
             </p>
         </div>
@@ -81,16 +81,16 @@
 </section>
 
 {{-- Stats Overview --}}
-<section class="bg-slate-50 py-12">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+<section class="bg-slate-50 py-10 sm:py-12">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
             @foreach($stats as $stat)
-                <div class="flex items-center gap-4 rounded-2xl bg-white p-6 shadow-sm">
-                    <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-700 text-white">
+                <div class="flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm sm:gap-4 sm:rounded-2xl sm:p-6">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-700 text-white sm:h-14 sm:w-14">
                         <i class="fa-solid {{ $stat['icon'] }} text-2xl"></i>
                     </div>
                     <div>
-                        <p class="text-3xl font-extrabold text-primary-700">{{ $stat['number'] }}</p>
+                        <p class="text-2xl font-extrabold text-primary-700 sm:text-3xl">{{ $stat['number'] }}</p>
                         <p class="text-sm font-medium text-slate-500">{{ $stat['label'] }}</p>
                     </div>
                 </div>
@@ -100,32 +100,32 @@
 </section>
 
 {{-- Training Programs --}}
-<section class="bg-white py-20">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="mb-12 text-center">
+<section class="bg-white py-12 sm:py-16 lg:py-20">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="mb-10 text-center sm:mb-12">
             <span class="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-primary-700">
                 Program Unggulan
             </span>
-            <h2 class="text-3xl font-extrabold text-primary-700 md:text-4xl">
+            <h2 class="text-2xl font-extrabold text-primary-700 sm:text-3xl md:text-4xl">
                 Pilih Program <span class="text-accent">Terbaik Anda</span>
             </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-slate-600">
+            <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 sm:mt-4 sm:text-base">
                 Berbagai pilihan program pelatihan dari level dasar hingga lanjut, disesuaikan dengan kebutuhan karir dan bisnis Anda.
             </p>
         </div>
         
-        <div class="grid items-start gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 items-start gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             @foreach($trainings as $training)
-            <div class="training-card group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
+            <div class="training-card group flex min-w-0 flex-col overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm sm:rounded-2xl">
                 {{-- Image --}}
-                <div class="relative h-52 overflow-hidden">
+                <div class="relative h-44 overflow-hidden sm:h-52">
                     <a href="{{ route('trainings.show', $training['slug']) }}" class="block h-full">
                         <img src="{{ $training['image'] }}" alt="{{ $training['title'] }}" class="training-image h-full w-full object-cover">
                     </a>
                     <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary-700/60 to-transparent"></div>
                     
                     {{-- Badges --}}
-                    <div class="absolute top-4 left-4 flex flex-wrap gap-2">
+                    <div class="absolute left-3 top-3 flex flex-wrap gap-2 sm:left-4 sm:top-4">
                         @if($training['is_featured'])
                         <span class="rounded-full bg-accent px-3 py-1 text-xs font-bold text-primary-700">
                             Unggulan
@@ -145,13 +145,13 @@
                 </div>
                 
                 {{-- Content --}}
-                <div class="flex flex-col p-6">
-                    <h3 class="mb-2 text-xl font-bold text-primary-700 line-clamp-2">
+                <div class="flex flex-col p-4 sm:p-6">
+                    <h3 class="mb-2 line-clamp-2 text-lg font-bold text-primary-700 sm:text-xl">
                         <a href="{{ route('trainings.show', $training['slug']) }}" class="transition hover:text-secondary-600">
                             {{ $training['title'] }}
                         </a>
                     </h3>
-                    <p class="mb-3 text-sm text-slate-600 line-clamp-3">{{ $training['description'] }}</p>
+                    <p class="mb-3 line-clamp-3 text-sm leading-6 text-slate-600">{{ $training['description'] }}</p>
                     
                     {{-- Meta Info --}}
                     <div class="mb-3 flex flex-wrap gap-3 text-xs text-slate-500">
@@ -177,18 +177,18 @@
                     
                     {{-- CTA --}}
                     @if(filled($training['registration_link']))
-                        <a href="{{ $training['registration_link'] }}" class="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary-700 py-3 text-sm font-bold text-white transition-all hover:bg-primary-600 hover:shadow-lg">
+                        <a href="{{ $training['registration_link'] }}" class="mt-2 flex min-h-[44px] w-full items-center justify-center gap-2 rounded-xl bg-primary-700 py-2.5 text-sm font-bold text-white transition-all hover:bg-primary-600 hover:shadow-lg sm:py-3">
                             <i class="fa-solid fa-user-plus"></i>
                             Daftar Sekarang
                         </a>
                     @else
-                        <span class="mt-2 flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-slate-200 py-3 text-sm font-bold text-slate-500">
+                        <span class="mt-2 flex min-h-[44px] w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-slate-200 py-2.5 text-sm font-bold text-slate-500 sm:py-3">
                             <i class="fa-solid fa-circle-info"></i>
                             Informasi Pendaftaran Menyusul
                         </span>
                     @endif
 
-                    <a href="{{ route('trainings.show', $training['slug']) }}" class="mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-100">
+                    <a href="{{ route('trainings.show', $training['slug']) }}" class="mt-2 inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-slate-300 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 sm:py-3">
                         <i class="fa-solid fa-circle-info"></i>
                         Lihat Detail
                     </a>
@@ -200,58 +200,58 @@
 </section>
 
 {{-- Why Choose Us --}}
-<section class="bg-white py-20">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="grid gap-12 lg:grid-cols-2 items-center">
+<section class="bg-white py-12 sm:py-16 lg:py-20">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-12">
             {{-- Left Content --}}
             <div>
                 <span class="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-primary-700">
                     Keunggulan Kami
                 </span>
-                <h2 class="mb-6 text-3xl font-extrabold text-primary-700 md:text-4xl">
+                <h2 class="mb-4 text-2xl font-extrabold text-primary-700 sm:mb-6 sm:text-3xl md:text-4xl">
                     Mengapa Memilih <span class="text-accent">Training Atiga?</span>
                 </h2>
-                <p class="mb-8 text-slate-600 leading-relaxed">
+                <p class="mb-6 text-sm leading-relaxed text-slate-600 sm:mb-8 sm:text-base">
                     Kami berkomitmen memberikan pengalaman belajar terbaik dengan materi yang selalu update, instruktur berpengalaman, dan dukungan penuh bagi setiap peserta.
                 </p>
                 
                 <div class="space-y-4">
-                    <div class="benefit-item flex items-start gap-4 rounded-xl p-4">
-                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white">
+                    <div class="benefit-item flex items-start gap-3 rounded-xl p-3 sm:gap-4 sm:p-4">
+                        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white sm:h-12 sm:w-12">
                             <i class="fa-solid fa-chalkboard-user text-xl"></i>
                         </div>
                         <div>
-                            <h4 class="mb-1 text-lg font-bold text-primary-700">Instruktur Berpengalaman</h4>
+                            <h4 class="mb-1 text-base font-bold text-primary-700 sm:text-lg">Instruktur Berpengalaman</h4>
                             <p class="text-sm text-slate-600">Dipandu oleh praktisi perpajakan dengan sertifikasi BKP dan pengalaman industri yang luas.</p>
                         </div>
                     </div>
                     
-                    <div class="benefit-item flex items-start gap-4 rounded-xl p-4">
-                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white">
+                    <div class="benefit-item flex items-start gap-3 rounded-xl p-3 sm:gap-4 sm:p-4">
+                        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white sm:h-12 sm:w-12">
                             <i class="fa-solid fa-book-open text-xl"></i>
                         </div>
                         <div>
-                            <h4 class="mb-1 text-lg font-bold text-primary-700">Materi Selalu Update</h4>
+                            <h4 class="mb-1 text-base font-bold text-primary-700 sm:text-lg">Materi Selalu Update</h4>
                             <p class="text-sm text-slate-600">Kurikulum disesuaikan dengan peraturan perpajakan terbaru dan praktik industri terkini.</p>
                         </div>
                     </div>
                     
-                    <div class="benefit-item flex items-start gap-4 rounded-xl p-4">
-                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white">
+                    <div class="benefit-item flex items-start gap-3 rounded-xl p-3 sm:gap-4 sm:p-4">
+                        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white sm:h-12 sm:w-12">
                             <i class="fa-solid fa-headset text-xl"></i>
                         </div>
                         <div>
-                            <h4 class="mb-1 text-lg font-bold text-primary-700">Dukungan Pasca Training</h4>
+                            <h4 class="mb-1 text-base font-bold text-primary-700 sm:text-lg">Dukungan Pasca Training</h4>
                             <p class="text-sm text-slate-600">Akses grup diskusi, konsultasi lanjutan, dan video rekaman untuk pembelajaran berkelanjutan.</p>
                         </div>
                     </div>
                     
-                    <div class="benefit-item flex items-start gap-4 rounded-xl p-4">
-                        <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white">
+                    <div class="benefit-item flex items-start gap-3 rounded-xl p-3 sm:gap-4 sm:p-4">
+                        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-700 text-white sm:h-12 sm:w-12">
                             <i class="fa-solid fa-award text-xl"></i>
                         </div>
                         <div>
-                            <h4 class="mb-1 text-lg font-bold text-primary-700">Sertifikat Resmi</h4>
+                            <h4 class="mb-1 text-base font-bold text-primary-700 sm:text-lg">Sertifikat Resmi</h4>
                             <p class="text-sm text-slate-600">Dapatkan sertifikat keikutsertaan yang diakui industri untuk memperkuat kredibilitas profesional Anda.</p>
                         </div>
                     </div>
@@ -260,15 +260,15 @@
             
             {{-- Right Image --}}
             <div class="relative">
-                <div class="absolute -right-4 -top-4 h-32 w-32 rounded-full bg-accent/20"></div>
-                <div class="absolute -bottom-4 -left-4 h-24 w-24 rounded-full bg-secondary-500/20"></div>
+                <div class="absolute -right-4 -top-4 hidden h-32 w-32 rounded-full bg-accent/20 sm:block"></div>
+                <div class="absolute -bottom-4 -left-4 hidden h-24 w-24 rounded-full bg-secondary-500/20 sm:block"></div>
                 <div class="relative overflow-hidden rounded-3xl">
                     <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&q=80" alt="Training Session" class="h-full w-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-primary-700/40 to-transparent"></div>
                 </div>
                 
                 {{-- Floating Stats --}}
-                <div class="absolute -bottom-6 -left-6 rounded-2xl bg-white p-4 shadow-xl">
+                <div class="mt-4 rounded-2xl bg-white p-4 shadow-xl sm:absolute sm:-bottom-6 sm:-left-6 sm:mt-0">
                     <div class="flex items-center gap-3">
                         <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary-700">
                             <i class="fa-solid fa-trophy text-xl"></i>
@@ -285,29 +285,29 @@
 </section>
 
 {{-- Testimonials --}}
-<section class="relative overflow-hidden bg-primary-700 py-24">
+<section class="relative overflow-hidden bg-primary-700 py-16 sm:py-20 md:py-24">
     {{-- Background Decoration --}}
     <div class="absolute inset-0 opacity-10">
         <div class="absolute left-1/4 top-0 h-64 w-64 rounded-full bg-accent blur-3xl"></div>
         <div class="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-secondary-500 blur-3xl"></div>
     </div>
     
-    <div class="relative mx-auto max-w-7xl px-4">
-        <div class="mb-16 text-center">
+    <div class="relative mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="mb-10 text-center sm:mb-12 md:mb-16">
             <span class="mb-3 inline-block rounded-full bg-accent/30 px-4 py-1 text-sm font-semibold text-accent">
                 Testimoni Peserta
             </span>
-            <h2 class="text-3xl font-extrabold text-white md:text-4xl">
+            <h2 class="text-2xl font-extrabold text-white sm:text-3xl md:text-4xl">
                 Apa Kata <span class="text-accent">Mereka?</span>
             </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-white/70">
+            <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-white/70 sm:mt-4 sm:text-base">
                 Pengalaman nyata dari alumni yang telah mengikuti program training kami.
             </p>
         </div>
         
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
             @foreach($testimonials as $testimonial)
-            <div class="testimonial-card rounded-2xl bg-white/10 p-8 backdrop-blur-sm">
+            <div class="testimonial-card rounded-2xl bg-white/10 p-5 backdrop-blur-sm sm:p-6 lg:p-8">
                 {{-- Rating --}}
                 <div class="mb-4 flex gap-1">
                     @for($i = 0; $i < $testimonial['rating']; $i++)
@@ -333,26 +333,26 @@
 </section>
 
 {{-- CTA Section --}}
-<section class="bg-slate-50 py-20">
-    <div class="mx-auto max-w-4xl px-4 text-center">
-        <div class="rounded-3xl bg-gradient-to-r from-primary-700 to-primary-600 p-10 md:p-16">
+<section class="bg-slate-50 py-12 sm:py-16 lg:py-20">
+    <div class="mx-auto max-w-4xl px-3 text-center sm:px-4">
+        <div class="rounded-2xl bg-gradient-to-r from-primary-700 to-primary-600 p-6 sm:rounded-3xl sm:p-8 md:p-12 lg:p-16">
             <div class="mb-6 flex justify-center">
-                <div class="flex h-20 w-20 items-center justify-center rounded-full bg-accent/20">
-                    <i class="fa-solid fa-rocket text-4xl text-accent"></i>
+                <div class="flex h-14 w-14 items-center justify-center rounded-full bg-accent/20 sm:h-16 sm:w-16 lg:h-20 lg:w-20">
+                    <i class="fa-solid fa-rocket text-2xl text-accent sm:text-3xl lg:text-4xl"></i>
                 </div>
             </div>
-            <h2 class="text-3xl font-bold text-white md:text-4xl">
+            <h2 class="text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 Siap Meningkatkan Karir Perpajakan Anda?
             </h2>
-            <p class="mx-auto mt-4 max-w-xl text-lg text-white/80">
+            <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:mt-4 sm:text-base md:text-lg">
                 Daftar sekarang dan mulai perjalanan Anda menjadi profesional perpajakan yang kompeten dan terpercaya.
             </p>
             <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a href="#" class="inline-flex items-center gap-2 rounded-xl bg-accent px-8 py-4 text-lg font-bold text-primary-700 transition-all hover:bg-accent/90 hover:shadow-lg">
+                <a href="#" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-2.5 text-base font-bold text-primary-700 transition-all hover:bg-accent/90 hover:shadow-lg sm:w-auto sm:px-8 sm:py-4 sm:text-lg">
                     <i class="fa-solid fa-user-plus"></i>
                     Daftar Training
                 </a>
-                <a href="{{ Route::has('contact') ? route('contact') : '#' }}" class="inline-flex items-center gap-2 rounded-xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-white/10">
+                <a href="{{ Route::has('contact') ? route('contact') : '#' }}" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-xl border-2 border-white/30 px-6 py-2.5 text-base font-semibold text-white transition-all hover:bg-white/10 sm:w-auto sm:px-8 sm:py-4 sm:text-lg">
                     Konsultasi Gratis
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>

@@ -4,29 +4,29 @@
 
 @section('content')
     {{-- Hero Section --}}
-    <section class="mx-auto max-w-7xl px-4 pt-6">
-        <div id="slider" class="relative mx-auto h-[320px] w-full overflow-hidden rounded-2xl bg-primary-600 shadow-lg md:h-[360px]">
+    <section class="mx-auto max-w-7xl px-3 pt-4 sm:px-4 sm:pt-6">
+        <div id="slider" class="relative mx-auto h-[280px] w-full overflow-hidden rounded-2xl bg-primary-600 shadow-lg sm:h-[320px] md:h-[360px]">
             @foreach($heroSlides as $index => $slide)
                 <div class="slide absolute inset-0 transition-opacity duration-500 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}" data-slide="{{ $index }}">
                     <img src="{{ $slide['image'] }}" alt="{{ $slide['title'] }}" class="h-full w-full object-cover" />
                     <div class="absolute inset-0 bg-gradient-to-t from-primary-700/95 via-primary-700/45 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 right-6 text-neutral">
+                    <div class="absolute bottom-4 left-4 right-4 text-neutral sm:bottom-6 sm:left-6 sm:right-6">
                         <span class="inline-flex rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-700">
                             Banner Promosi
                         </span>
-                        <h1 class="mt-3 text-2xl font-bold leading-tight md:text-4xl">{{ $slide['title'] }}</h1>
-                        <p class="mt-2 max-w-3xl text-sm text-white/80 md:text-base">{{ $slide['subtitle'] }}</p>
-                        <a href="{{ $slide['cta_link'] }}" class="mt-4 inline-block rounded-md bg-accent px-6 py-2 text-sm font-semibold text-primary-700 transition hover:bg-accent/90">
+                        <h1 class="mt-3 text-xl font-bold leading-tight text-balance sm:text-2xl md:text-4xl">{{ $slide['title'] }}</h1>
+                        <p class="mt-2 max-w-3xl text-xs text-pretty text-white/80 sm:text-sm md:text-base">{{ $slide['subtitle'] }}</p>
+                        <a href="{{ $slide['cta_link'] }}" class="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-md bg-accent px-4 py-2.5 text-sm font-semibold text-primary-700 transition hover:bg-accent/90 sm:px-6">
                             {{ $slide['cta_text'] }}
                         </a>
                     </div>
                 </div>
             @endforeach
 
-            <button id="prevSlide" class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-neutral/85 px-3 py-2 text-primary-700 shadow transition hover:bg-neutral" aria-label="Slide sebelumnya">
+            <button id="prevSlide" class="absolute left-2 top-1/2 inline-flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full bg-neutral/85 px-3 py-2 text-primary-700 shadow transition hover:bg-neutral sm:left-4" aria-label="Slide sebelumnya">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
-            <button id="nextSlide" class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-neutral/85 px-3 py-2 text-primary-700 shadow transition hover:bg-neutral" aria-label="Slide berikutnya">
+            <button id="nextSlide" class="absolute right-2 top-1/2 inline-flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full bg-neutral/85 px-3 py-2 text-primary-700 shadow transition hover:bg-neutral sm:right-4" aria-label="Slide berikutnya">
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
         </div>
@@ -51,7 +51,7 @@
                             <span><i class="fa-regular fa-calendar mr-1"></i>{{ $headlineArticle['published_at'] }}</span>
                             <span class="ml-3"><i class="fa-regular fa-user mr-1"></i>{{ $headlineArticle['author'] }}</span>
                         </div>
-                        <a href="{{ \Illuminate\Support\Facades\Route::has('articles.show') ? route('articles.show', $headlineArticle['slug']) : '#' }}" class="mt-5 inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-primary-700 transition hover:bg-accent/90">
+                        <a href="{{ \Illuminate\Support\Facades\Route::has('articles.show') ? route('articles.show', $headlineArticle['slug']) : '#' }}" class="mt-5 inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-primary-700 transition hover:bg-accent/90">
                             Baca Selengkapnya <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
@@ -85,9 +85,9 @@
     </section>
 
     {{-- Featured Cards Section --}}
-    <section class="mx-auto max-w-7xl px-4 py-12">
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+    <section class="mx-auto max-w-7xl px-3 py-10 sm:px-4 sm:py-12">
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md sm:p-6">
                 <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
                     <i class="fa-solid fa-receipt text-xl text-primary-700"></i>
                 </div>
@@ -98,7 +98,7 @@
                     Baca Artikel <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
-            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md sm:p-6">
                 <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
                     <i class="fa-solid fa-scale-balanced text-xl text-primary-700"></i>
                 </div>
@@ -109,7 +109,7 @@
                     Baca Artikel <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
-            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md sm:p-6">
                 <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
                     <i class="fa-solid fa-file-invoice-dollar text-xl text-primary-700"></i>
                 </div>
@@ -120,7 +120,7 @@
                     Baca Artikel <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
-            <div class="rounded-xl bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md sm:p-6">
                 <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-700/10">
                     <i class="fa-solid fa-chart-line text-xl text-primary-700"></i>
                 </div>
@@ -240,7 +240,7 @@
                     </div>
                     <h5 class="text-lg font-bold">Butuh Konsultasi?</h5>
                     <p class="mt-2 text-sm text-white/80">Tim ahli pajak kami siap membantu permasalahan perpajakan Anda.</p>
-                    <a href="{{ \Illuminate\Support\Facades\Route::has('contact') ? route('contact') : '#' }}" class="mt-4 block w-full rounded-lg bg-accent py-2 text-center text-sm font-semibold text-primary-700 transition hover:bg-accent/90">
+                    <a href="{{ \Illuminate\Support\Facades\Route::has('contact') ? route('contact') : '#' }}" class="mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-lg bg-accent px-4 py-2.5 text-center text-sm font-semibold text-primary-700 transition hover:bg-accent/90">
                         Hubungi Kami
                     </a>
                 </div>

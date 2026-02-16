@@ -56,9 +56,9 @@
         <div class="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-secondary-500 blur-3xl"></div>
     </div>
     
-    <div class="relative mx-auto max-w-7xl px-4 py-16 md:py-24">
+    <div class="relative mx-auto max-w-7xl px-3 py-12 sm:px-4 sm:py-16 md:py-24">
         {{-- Breadcrumb --}}
-        <nav class="mb-8 flex items-center gap-2 text-sm text-white/60">
+        <nav class="mb-6 flex items-center gap-1.5 text-xs text-white/60 sm:mb-8 sm:gap-2 sm:text-sm">
             <a href="{{ Route::has('home') ? route('home') : '/' }}" class="hover:text-accent transition">Beranda</a>
             <i class="fa-solid fa-chevron-right text-xs"></i>
             <span class="text-accent">Artikel & Insight</span>
@@ -66,13 +66,13 @@
         
         {{-- Hero Content --}}
         <div class="max-w-3xl">
-            <span class="mb-4 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-accent">
+            <span class="mb-3 inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold text-accent sm:mb-4 sm:px-4 sm:text-sm">
                 <i class="fa-solid fa-newspaper mr-2"></i>Update Terkini
             </span>
-            <h1 class="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
+            <h1 class="mb-4 text-3xl font-extrabold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
                 Artikel & <span class="text-accent">Insight</span>
             </h1>
-            <p class="max-w-2xl text-lg text-white/80 leading-relaxed">
+            <p class="max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
                 Temukan artikel, analisis, dan insight terbaru seputar perpajakan di Indonesia. Dapatkan pemahaman mendalam tentang regulasi, strategi tax planning, dan tips kepatuhan pajak.
             </p>
         </div>
@@ -87,28 +87,28 @@
 </section>
 
 {{-- Main Content --}}
-<section class="bg-slate-50 py-12 md:py-16">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="grid gap-8 lg:grid-cols-3">
+<section class="bg-slate-50 py-10 sm:py-12 md:py-16">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="grid gap-6 lg:gap-8 lg:grid-cols-3">
             {{-- Main Content Area --}}
-            <div class="lg:col-span-2 space-y-8">
+            <div class="space-y-6 lg:col-span-2 sm:space-y-8">
                 {{-- Featured Article --}}
                 @if(isset($featuredArticle))
-                <div class="featured-card group relative overflow-hidden rounded-2xl bg-white shadow-lg">
-                    <div class="relative aspect-[21/9] overflow-hidden md:aspect-[21/8]">
+                <div class="featured-card group relative overflow-hidden rounded-xl bg-white shadow-lg sm:rounded-2xl">
+                    <div class="relative aspect-[4/3] overflow-hidden sm:aspect-[21/9] md:aspect-[21/8]">
                         <img src="{{ $featuredArticle['image'] }}" alt="{{ $featuredArticle['title'] }}" class="featured-image h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-primary-700 via-primary-700/60 to-transparent"></div>
                         
                         {{-- Featured Badge --}}
-                        <div class="absolute left-6 top-6">
-                            <span class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-primary-700">
+                        <div class="absolute left-3 top-3 sm:left-6 sm:top-6">
+                            <span class="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1 text-xs font-bold text-primary-700 sm:gap-2 sm:px-4 sm:py-1.5 sm:text-sm">
                                 <i class="fa-solid fa-star"></i> Artikel Unggulan
                             </span>
                         </div>
                         
                         {{-- Featured Content --}}
-                        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                            <div class="mb-3 flex flex-wrap items-center gap-3 text-sm text-white/80">
+                        <div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+                            <div class="mb-2 flex flex-wrap items-center gap-2 text-xs text-white/80 sm:mb-3 sm:gap-3 sm:text-sm">
                                 <span class="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">
                                     {{ $featuredArticle['category'] }}
                                 </span>
@@ -121,13 +121,13 @@
                                     {{ $featuredArticle['read_time'] }}
                                 </span>
                             </div>
-                            <h2 class="mb-3 text-2xl font-bold text-white md:text-3xl">
+                            <h2 class="mb-2 text-xl font-bold text-white sm:mb-3 sm:text-2xl md:text-3xl">
                                 {{ $featuredArticle['title'] }}
                             </h2>
-                            <p class="mb-4 text-white/80 line-clamp-2 md:line-clamp-none">
+                            <p class="mb-3 text-sm leading-relaxed text-white/80 line-clamp-2 sm:mb-4 sm:text-base md:line-clamp-none">
                                 {{ $featuredArticle['excerpt'] }}
                             </p>
-                            <a href="{{ Route::has('articles.show') ? route('articles.show', $featuredArticle['slug']) : '#' }}" class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-primary-700 transition hover:bg-accent/90">
+                            <a href="{{ Route::has('articles.show') ? route('articles.show', $featuredArticle['slug']) : '#' }}" class="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-primary-700 transition hover:bg-accent/90 sm:px-5">
                                 Baca Selengkapnya
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
@@ -137,20 +137,20 @@
                 @endif
 
                 {{-- Section Header --}}
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-700 text-white">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-700 text-white sm:h-10 sm:w-10 sm:rounded-xl">
                             <i class="fa-solid fa-layer-group"></i>
                         </div>
-                        <h2 class="text-xl font-bold text-primary-700 md:text-2xl">Semua Artikel</h2>
+                        <h2 class="text-lg font-bold text-primary-700 sm:text-xl md:text-2xl">Semua Artikel</h2>
                     </div>
-                    <span class="text-sm text-slate-500">{{ $articles->total() }} artikel tersedia</span>
+                    <span class="text-xs text-slate-500 sm:text-sm">{{ $articles->total() }} artikel tersedia</span>
                 </div>
 
                 {{-- Articles Grid --}}
-                <div class="grid gap-6 sm:grid-cols-2">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
                     @foreach($articles as $article)
-                    <article class="article-card group rounded-2xl bg-white shadow-sm overflow-hidden">
+                    <article class="article-card group min-w-0 overflow-hidden rounded-xl bg-white shadow-sm sm:rounded-2xl">
                         {{-- Image --}}
                         <div class="relative aspect-[16/10] overflow-hidden">
                             <img src="{{ $article['image'] }}" alt="{{ $article['title'] }}" class="article-image h-full w-full object-cover">
@@ -162,8 +162,8 @@
                         </div>
                         
                         {{-- Content --}}
-                        <div class="p-5">
-                            <div class="mb-3 flex items-center gap-3 text-xs text-slate-500">
+                        <div class="p-4 sm:p-5">
+                            <div class="mb-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3">
                                 <span class="flex items-center gap-1">
                                     <i class="fa-regular fa-calendar"></i>
                                     {{ \Carbon\Carbon::parse($article['published_at'])->translatedFormat('d F Y') }}
@@ -174,21 +174,21 @@
                                 </span>
                             </div>
                             
-                            <h3 class="mb-2 text-lg font-bold text-primary-700 line-clamp-2 group-hover:text-secondary-600 transition">
+                            <h3 class="mb-2 text-base font-bold leading-snug text-primary-700 line-clamp-2 transition group-hover:text-secondary-600 sm:text-lg">
                                 {{ $article['title'] }}
                             </h3>
-                            
-                            <p class="mb-4 text-sm text-slate-600 line-clamp-2">
+
+                            <p class="mb-3 text-sm leading-6 text-slate-600 line-clamp-2 sm:mb-4">
                                 {{ $article['excerpt'] }}
                             </p>
-                            
+
                             {{-- Author & Link --}}
-                            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+                            <div class="flex flex-col gap-2 border-t border-slate-100 pt-3 sm:flex-row sm:items-center sm:justify-between sm:pt-4">
                                 <div class="flex items-center gap-2">
                                     <img src="{{ $article['author']['photo'] }}" alt="{{ $article['author']['name'] }}" class="h-8 w-8 rounded-full object-cover">
                                     <span class="text-xs font-medium text-slate-600">{{ $article['author']['name'] }}</span>
                                 </div>
-                                <a href="{{ Route::has('articles.show') ? route('articles.show', $article['slug']) : '#' }}" class="text-sm font-semibold text-accent hover:text-primary-700 transition">
+                                <a href="{{ Route::has('articles.show') ? route('articles.show', $article['slug']) : '#' }}" class="inline-flex min-h-[44px] items-center text-sm font-semibold text-accent transition hover:text-primary-700">
                                     Baca <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
                                 </a>
                             </div>

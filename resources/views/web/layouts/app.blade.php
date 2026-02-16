@@ -41,14 +41,16 @@
 
     @stack('styles')
 </head>
-<body class="bg-slate-50 font-sans antialiased text-primary-700">
-    @include('web.layouts.navbar')
+<body class="bg-slate-50 font-sans antialiased text-primary-700 min-h-screen overflow-x-hidden">
+    <div class="relative flex min-h-screen flex-col overflow-x-clip">
+        @include('web.layouts.navbar')
 
-    <main>
-        @yield('content')
-    </main>
+        <main class="flex-1 min-w-0">
+            @yield('content')
+        </main>
 
-    @include('web.layouts.footer')
+        @include('web.layouts.footer')
+    </div>
 
     @stack('scripts')
 </body>

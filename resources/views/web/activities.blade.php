@@ -30,21 +30,21 @@
         <div class="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-secondary-500 blur-3xl"></div>
     </div>
 
-    <div class="relative mx-auto max-w-7xl px-4 py-20 md:py-24">
-        <nav class="mb-8 flex items-center gap-2 text-sm text-white/70">
+    <div class="relative mx-auto max-w-7xl px-3 py-12 sm:px-4 sm:py-16 md:py-20 lg:py-24">
+        <nav class="mb-6 flex items-center gap-2 text-xs text-white/70 sm:mb-8 sm:text-sm">
             <a href="{{ Route::has('home') ? route('home') : '/' }}" class="transition hover:text-accent">Beranda</a>
             <i class="fa-solid fa-chevron-right text-xs"></i>
             <span class="text-accent">Aktifitas</span>
         </nav>
 
-        <div class="max-w-3xl">
-            <span class="mb-4 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-accent">
+        <div class="max-w-3xl min-w-0">
+            <span class="mb-3 inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold text-accent sm:mb-4 sm:px-4 sm:text-sm">
                 Arsip Kegiatan
             </span>
-            <h1 class="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl">
+            <h1 class="mb-6 text-3xl font-extrabold leading-tight text-white sm:text-4xl md:text-5xl">
                 Dokumentasi <span class="text-accent">Aktifitas Atiga</span>
             </h1>
-            <p class="max-w-2xl text-lg leading-relaxed text-white/85">
+            <p class="max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base md:text-lg">
                 Halaman ini merangkum aktivitas yang telah diselenggarakan Atiga, lengkap dengan waktu pelaksanaan,
                 deskripsi kegiatan, serta dokumentasi visual.
             </p>
@@ -58,67 +58,67 @@
     </div>
 </section>
 
-<section class="bg-slate-50 py-14">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+<section class="bg-slate-50 py-10 sm:py-14">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:gap-6">
             @foreach($highlights as $highlight)
-                <div class="rounded-2xl bg-white p-7 text-center shadow-sm transition-all hover:shadow-md">
-                    <p class="text-4xl font-extrabold text-primary-700">{{ $highlight['number'] }}</p>
-                    <p class="mt-2 text-sm font-medium text-slate-500">{{ $highlight['label'] }}</p>
+                <div class="rounded-xl bg-white p-4 text-center shadow-sm transition-all hover:shadow-md sm:rounded-2xl sm:p-6 lg:p-7">
+                    <p class="break-words text-3xl font-extrabold text-primary-700 sm:text-4xl">{{ $highlight['number'] }}</p>
+                    <p class="mt-2 break-words text-xs font-medium text-slate-500 sm:text-sm">{{ $highlight['label'] }}</p>
                 </div>
             @endforeach
         </div>
     </div>
 </section>
 
-<section class="bg-white py-20">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="mb-10 text-center">
-            <span class="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-primary-700">
+<section class="bg-white py-12 sm:py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="mb-8 text-center sm:mb-10">
+            <span class="mb-3 inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold text-primary-700 sm:px-4 sm:text-sm">
                 Daftar Dokumentasi
             </span>
-            <h2 class="text-3xl font-extrabold text-primary-700 md:text-4xl">
+            <h2 class="text-2xl font-extrabold text-primary-700 sm:text-3xl md:text-4xl">
                 Riwayat <span class="text-accent">Kegiatan</span>
             </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-slate-600">
+            <p class="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:mt-4 sm:text-base">
                 Pilih salah satu aktivitas untuk melihat detail waktu pelaksanaan, lokasi, dan galeri dokumentasi.
             </p>
         </div>
 
-        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div class="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
             @forelse($activities as $activity)
-                <article class="activity-card h-full overflow-hidden rounded-2xl bg-slate-50 shadow-sm">
+                <article class="activity-card h-full min-w-0 overflow-hidden rounded-xl bg-slate-50 shadow-sm sm:rounded-2xl">
                     <a href="{{ route('activities.show', $activity['slug']) }}" class="block h-full">
-                        <div class="relative h-52 overflow-hidden">
+                        <div class="relative h-44 overflow-hidden sm:h-52">
                             <img src="{{ $activity['image'] }}" alt="{{ $activity['title'] }}" class="h-full w-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-primary-700/70 to-transparent"></div>
                             <div class="absolute left-4 top-4">
-                                <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-primary-700">
+                                <span class="rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold leading-4 text-primary-700 sm:px-3 sm:text-xs">
                                     {{ $activity['is_featured'] ? 'Unggulan' : 'Aktifitas' }}
                                 </span>
                             </div>
                         </div>
 
-                        <div class="flex h-full min-h-[250px] flex-col p-6">
-                            <h3 class="mb-3 line-clamp-2 min-h-[56px] text-xl font-bold text-primary-700 transition group-hover:text-secondary-500">
+                        <div class="flex h-full min-h-[230px] min-w-0 flex-col p-4 sm:min-h-[250px] sm:p-6">
+                            <h3 class="mb-3 line-clamp-2 min-h-[52px] break-words text-lg font-bold text-primary-700 transition group-hover:text-secondary-500 sm:min-h-[56px] sm:text-xl">
                                 {{ $activity['title'] }}
                             </h3>
-                            <p class="mb-4 line-clamp-3 min-h-[66px] text-sm leading-relaxed text-slate-600">
+                            <p class="mb-4 line-clamp-3 min-h-[60px] break-words text-sm leading-relaxed text-slate-600 sm:min-h-[66px]">
                                 {{ $activity['excerpt'] }}
                             </p>
 
-                            <div class="min-h-[70px] space-y-2 text-sm text-slate-500">
+                            <div class="min-h-[70px] min-w-0 space-y-2 text-sm text-slate-500">
                                 <div class="flex items-start gap-2">
-                                    <i class="fa-solid fa-calendar-days mt-0.5 text-accent"></i>
-                                    <span>{{ optional($activity['held_at'])->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</span>
+                                    <i class="fa-solid fa-calendar-days mt-0.5 shrink-0 text-accent"></i>
+                                    <span class="min-w-0 break-words">{{ optional($activity['held_at'])->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</span>
                                 </div>
                                 <div class="flex items-start gap-2">
-                                    <i class="fa-solid fa-location-dot mt-0.5 text-accent"></i>
-                                    <span>{{ \Illuminate\Support\Str::limit($activity['location'], 50) }}</span>
+                                    <i class="fa-solid fa-location-dot mt-0.5 shrink-0 text-accent"></i>
+                                    <span class="min-w-0 break-words">{{ \Illuminate\Support\Str::limit($activity['location'], 50) }}</span>
                                 </div>
                             </div>
 
-                            <div class="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-secondary-500">
+                            <div class="mt-auto inline-flex min-h-[44px] items-center gap-2 pt-5 text-sm font-semibold text-secondary-500 sm:pt-6">
                                 Lihat dokumentasi
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </div>

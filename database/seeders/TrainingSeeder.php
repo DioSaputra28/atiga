@@ -38,7 +38,7 @@ class TrainingSeeder extends Seeder
             ->upcoming()
             ->free()
             ->create([
-                'title' => 'Webinar Gratis: ' . fake()->sentence(4),
+                'title' => 'Webinar Gratis: '.fake()->sentence(4),
             ]);
     }
 }

@@ -65,9 +65,9 @@
         <div class="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-secondary-500 blur-3xl"></div>
     </div>
     
-    <div class="relative mx-auto max-w-7xl px-4 py-20 md:py-28">
+    <div class="relative mx-auto max-w-7xl px-3 py-12 sm:px-4 sm:py-16 md:py-24 lg:py-28">
         {{-- Breadcrumb --}}
-        <nav class="mb-8 flex items-center gap-2 text-sm text-white/60">
+        <nav class="mb-6 flex flex-wrap items-center gap-2 text-xs text-white/60 sm:mb-8 sm:text-sm">
             <a href="{{ Route::has('home') ? route('home') : '/' }}" class="hover:text-accent transition">Beranda</a>
             <i class="fa-solid fa-chevron-right text-xs"></i>
             <span class="text-accent">Layanan</span>
@@ -75,15 +75,20 @@
         
         {{-- Hero Content --}}
         <div class="max-w-3xl">
-            <span class="mb-4 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-accent">
-                Solusi Perpajakan
+            @if($heroBadge)
+            <span class="mb-4 inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold text-accent sm:text-sm">
+                {{ $heroBadge }}
             </span>
-            <h1 class="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
-                Layanan Konsultasi<br>
-                <span class="text-accent">Pajak Profesional</span>
+            @endif
+            <h1 class="mb-4 text-3xl font-extrabold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
+                {{ $heroTitle }}
+                @if($heroHighlight)
+                <br>
+                <span class="text-accent">{{ $heroHighlight }}</span>
+                @endif
             </h1>
-            <p class="max-w-2xl text-lg text-white/80 leading-relaxed">
-                Kami menyediakan layanan perpajakan komprehensif untuk individu dan korporasi, dengan pendekatan yang personal dan solusi yang terukur.
+            <p class="max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base md:text-lg">
+                {{ $heroDescription }}
             </p>
         </div>
     </div>
@@ -97,41 +102,41 @@
 </section>
 
 {{-- Main Services Grid --}}
-<section class="bg-slate-50 py-20">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="mb-12 text-center">
+<section class="bg-slate-50 py-12 sm:py-16 lg:py-20">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
+        <div class="mb-8 text-center sm:mb-12">
             <span class="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-primary-700">
                 Layanan Utama
             </span>
-            <h2 class="text-3xl font-extrabold text-primary-700 md:text-4xl">
+            <h2 class="text-2xl font-extrabold text-primary-700 sm:text-3xl md:text-4xl">
                 Solusi Pajak untuk <span class="text-accent">Setiap Kebutuhan</span>
             </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-slate-600">
+            <p class="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:mt-4 sm:text-base">
                 Dari konsultasi personal hingga pendampingan pemeriksaan pajak, kami siap membantu Anda menavigasi kompleksitas perpajakan Indonesia.
             </p>
         </div>
         
-        <div class="grid gap-8 lg:grid-cols-2">
+        <div class="grid gap-4 sm:gap-6 lg:grid-cols-2 lg:gap-8">
             @foreach($mainServices as $service)
-            <div class="service-card rounded-2xl bg-white p-8 shadow-sm">
-                <div class="mb-6 flex items-start justify-between">
-                    <div class="service-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-700 to-primary-600 text-white">
-                        <i class="fa-solid {{ $service['icon'] }} text-2xl"></i>
+            <div class="service-card min-w-0 rounded-xl bg-white p-4 shadow-sm sm:rounded-2xl sm:p-6 lg:p-8">
+                <div class="mb-4 flex items-start justify-between gap-3 sm:mb-6">
+                    <div class="service-icon flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-700 to-primary-600 text-white sm:h-14 sm:w-14 sm:rounded-2xl lg:h-16 lg:w-16">
+                        <i class="fa-solid {{ $service['icon'] }} text-xl sm:text-2xl"></i>
                     </div>
-                    <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
-                        #0{{ $service['id'] }}
+                    <span class="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600 sm:px-3 sm:text-xs">
+                        #{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}
                     </span>
                 </div>
                 
-                <h3 class="mb-3 text-2xl font-bold text-primary-700">{{ $service['title'] }}</h3>
-                <p class="mb-6 text-slate-600 leading-relaxed">{{ $service['description'] }}</p>
+                <h3 class="mb-2 text-xl font-bold text-primary-700 sm:mb-3 sm:text-2xl">{{ $service['title'] }}</h3>
+                <p class="mb-4 text-sm leading-relaxed text-slate-600 sm:mb-6 sm:text-base">{{ $service['description'] }}</p>
                 
-                <div class="border-t border-slate-100 pt-6">
+                <div class="border-t border-slate-100 pt-4 sm:pt-6">
                     <p class="mb-4 text-sm font-semibold text-primary-700">Fitur Layanan:</p>
-                    <ul class="space-y-3">
+                    <ul class="space-y-2 sm:space-y-3">
                         @foreach($service['features'] as $feature)
-                        <li class="feature-item flex items-start gap-3">
-                            <div class="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-accent/20">
+                        <li class="feature-item flex items-start gap-2.5 sm:gap-3">
+                            <div class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/20">
                                 <i class="fa-solid fa-check text-xs text-accent"></i>
                             </div>
                             <span class="text-sm text-slate-600">{{ $feature }}</span>
@@ -145,86 +150,22 @@
     </div>
 </section>
 
-{{-- Additional Services --}}
-<section class="bg-white py-20">
-    <div class="mx-auto max-w-7xl px-4">
-        <div class="mb-12 text-center">
-            <span class="mb-3 inline-block rounded-full bg-accent/20 px-4 py-1 text-sm font-semibold text-primary-700">
-                Layanan Tambahan
-            </span>
-            <h2 class="text-3xl font-extrabold text-primary-700 md:text-4xl">
-                Pelayanan <span class="text-accent">Komplementer</span>
-            </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-slate-600">
-                Layanan pendukung untuk memastikan kepatuhan pajak Anda optimal dan efisien.
-            </p>
-        </div>
-        
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach($additionalServices as $service)
-            <div class="additional-card rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center">
-                <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-700 text-white transition-transform duration-300 hover:scale-110">
-                    <i class="fa-solid {{ $service['icon'] }} text-xl"></i>
-                </div>
-                <h3 class="mb-2 text-lg font-bold text-primary-700">{{ $service['title'] }}</h3>
-                <p class="text-sm text-slate-600 leading-relaxed">{{ $service['description'] }}</p>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- Process Steps --}}
-<section class="bg-primary-700 py-24 relative overflow-hidden">
-    {{-- Background Decoration --}}
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute left-1/4 top-0 h-64 w-64 rounded-full bg-accent blur-3xl"></div>
-        <div class="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-secondary-500 blur-3xl"></div>
-    </div>
-    
-    <div class="relative mx-auto max-w-7xl px-4">
-        <div class="mb-16 text-center">
-            <span class="mb-3 inline-block rounded-full bg-accent/30 px-4 py-1 text-sm font-semibold text-accent">
-                Alur Kerja
-            </span>
-            <h2 class="text-3xl font-extrabold text-white md:text-4xl">
-                Proses <span class="text-accent">Konsultasi</span>
-            </h2>
-            <p class="mx-auto mt-4 max-w-2xl text-white/70">
-                Langkah-langkah sistematis kami dalam memberikan solusi perpajakan terbaik untuk Anda.
-            </p>
-        </div>
-        
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach($processSteps as $step)
-            <div class="process-step relative text-center">
-                <div class="step-number mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl text-2xl font-extrabold text-accent shadow-lg">
-                    {{ $step['number'] }}
-                </div>
-                <h3 class="mb-3 text-xl font-bold text-white">{{ $step['title'] }}</h3>
-                <p class="text-white/70 leading-relaxed">{{ $step['description'] }}</p>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
 {{-- CTA Section --}}
-<section class="bg-slate-50 py-20">
-    <div class="mx-auto max-w-4xl px-4 text-center">
-        <div class="rounded-3xl bg-gradient-to-r from-primary-700 to-primary-600 p-10 md:p-16">
-            <h2 class="text-3xl font-bold text-white md:text-4xl">
+<section class="bg-slate-50 py-12 sm:py-16 lg:py-20">
+    <div class="mx-auto max-w-4xl px-3 text-center sm:px-4">
+        <div class="rounded-2xl bg-gradient-to-r from-primary-700 to-primary-600 p-6 sm:rounded-3xl sm:p-10 md:p-14 lg:p-16">
+            <h2 class="text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 Butuh Solusi Pajak yang Tepat?
             </h2>
-            <p class="mx-auto mt-4 max-w-xl text-lg text-white/80">
+            <p class="mx-auto mt-3 max-w-xl text-sm text-white/80 sm:mt-4 sm:text-base md:text-lg">
                 Jadwalkan konsultasi gratis dengan tim ahli pajak kami dan temukan strategi terbaik untuk kebutuhan Anda.
             </p>
-            <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a href="{{ Route::has('contact') ? route('contact') : '#' }}" class="inline-flex items-center gap-2 rounded-xl bg-accent px-8 py-4 text-lg font-bold text-primary-700 transition-all hover:bg-accent/90 hover:shadow-lg">
+            <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:gap-4 sm:flex-row">
+                <a href="{{ Route::has('contact') ? route('contact') : '#' }}" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-2.5 text-base font-bold text-primary-700 transition-all hover:bg-accent/90 hover:shadow-lg sm:w-auto sm:px-8 sm:py-4 sm:text-lg">
                     <i class="fa-solid fa-calendar-check"></i>
                     Jadwalkan Konsultasi
                 </a>
-                <a href="{{ Route::has('home') ? route('home') : '/' }}" class="inline-flex items-center gap-2 rounded-xl border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-white/10">
+                <a href="{{ Route::has('home') ? route('home') : '/' }}" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-xl border-2 border-white/30 px-6 py-2.5 text-base font-semibold text-white transition-all hover:bg-white/10 sm:w-auto sm:px-8 sm:py-4 sm:text-lg">
                     Kembali ke Beranda
                     <i class="fa-solid fa-arrow-right"></i>
                 </a>

@@ -3,207 +3,154 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\AboutPage;
+use App\Models\ServicesPage;
 use Illuminate\View\View;
 
 class PageController extends Controller
 {
     public function about(): View
     {
-        $companyInfo = [
-            'name' => 'PT. Konsultan Pajak Indonesia',
-            'founded' => '2010',
-            'headquarters' => 'Jakarta Selatan',
-            'employees' => '50+',
-            'clients' => '500+',
+        $aboutPage = AboutPage::find(1);
+
+        if ($aboutPage === null || ! $aboutPage->is_published) {
+            abort(404);
+        }
+
+        $statIcons = [
+            'fa-calendar-days',
+            'fa-users',
+            'fa-handshake',
+            'fa-location-dot',
         ];
 
-        $vision = 'Menjadi konsultan pajak terdepan di Indonesia yang memberikan solusi perpajakan berkualitas tinggi dengan integritas dan profesionalisme.';
+        $stats = array_values(array_map(
+            static function (mixed $item, int $index) use ($statIcons): array {
+                $stat = is_array($item) ? $item : [];
 
-        $mission = [
-            'Memberikan layanan konsultasi pajak yang akurat dan tepat waktu',
-            'Mendampingi klien dalam mencapai kepatuhan perpajakan yang optimal',
-            'Mengembangkan SDM berkompeten di bidang perpajakan',
-            'Menyediakan solusi tax planning yang efektif dan efisien',
-            'Menjadi mitra strategis dalam pengembangan bisnis klien',
-        ];
-
-        $values = [
-            [
-                'icon' => 'fa-shield-alt',
-                'title' => 'Integritas',
-                'description' => 'Kami menjalankan praktik bisnis dengan jujur dan transparan',
-            ],
-            [
-                'icon' => 'fa-award',
-                'title' => 'Profesionalisme',
-                'description' => 'Kualitas layanan adalah prioritas utama dalam setiap pekerjaan',
-            ],
-            [
-                'icon' => 'fa-handshake',
-                'title' => 'Kemitraan',
-                'description' => 'Membangun hubungan jangka panjang dengan klien berbasis kepercayaan',
-            ],
-            [
-                'icon' => 'fa-lightbulb',
-                'title' => 'Inovasi',
-                'description' => 'Terus beradaptasi dengan perkembangan regulasi dan teknologi',
-            ],
-        ];
-
-        $team = [
-            [
-                'name' => 'Dr. Ahmad Sudirman',
-                'position' => 'Founder & Managing Partner',
-                'photo' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80',
-                'description' => 'Berpengalaman 25 tahun dalam konsultasi pajak korporasi',
-            ],
-            [
-                'name' => 'Dewi Kusuma, M.Si, Ak',
-                'position' => 'Tax Partner',
-                'photo' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80',
-                'description' => 'Ahli dalam perpajakan internasional dan transfer pricing',
-            ],
-            [
-                'name' => 'Bambang Wijaya, SE, Ak, BKP',
-                'position' => 'Senior Tax Advisor',
-                'photo' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80',
-                'description' => 'Spesialisasi dalam pajak badan dan tax planning strategis',
-            ],
-            [
-                'name' => 'Ratna Sari, SE, M.M',
-                'position' => 'Tax Manager',
-                'photo' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80',
-                'description' => 'Fokus pada pelatihan pajak dan pengembangan SDM',
-            ],
-        ];
-
-        $milestones = [
-            ['year' => '2010', 'event' => 'Pendirian perusahaan dengan 3 konsultan'],
-            ['year' => '2013', 'event' => 'Ekspansi layanan ke seluruh Indonesia'],
-            ['year' => '2016', 'event' => 'Mencapai 100 klien aktif'],
-            ['year' => '2019', 'event' => 'Sertifikasi ISO 9001:2015'],
-            ['year' => '2022', 'event' => 'Peluncuran platform digital konsultasi'],
-            ['year' => '2025', 'event' => '500+ klien dan 50+ tim profesional'],
-        ];
-
-        return view('web.about', compact(
-            'companyInfo',
-            'vision',
-            'mission',
-            'values',
-            'team',
-            'milestones'
+                return [
+                    'label' => (string) ($stat['label'] ?? ''),
+                    'value' => (string) ($stat['value'] ?? ''),
+                    'suffix' => isset($stat['suffix']) ? (string) $stat['suffix'] : '',
+                    'icon' => $statIcons[$index % count($statIcons)],
+                ];
+            },
+            $aboutPage->stats_json ?? [],
+            array_keys($aboutPage->stats_json ?? [])
         ));
+
+        $mission = array_values(array_filter(array_map(
+            static fn (mixed $item): string => is_array($item) ? (string) ($item['text'] ?? '') : '',
+            $aboutPage->mission_json ?? []
+        ), static fn (string $text): bool => $text !== ''));
+
+        $visionEntries = is_array($aboutPage->vision_json ?? null)
+            ? $aboutPage->vision_json
+            : [];
+
+        $visionItems = array_values(array_filter(array_map(
+            static fn (mixed $item): string => is_array($item) ? trim((string) ($item['text'] ?? '')) : '',
+            $visionEntries
+        ), static fn (string $text): bool => $text !== ''));
+
+        if ($visionItems === []) {
+            $legacyVisionText = trim((string) ($aboutPage->getAttribute('vision_text') ?? ''));
+
+            if ($legacyVisionText !== '') {
+                $visionItems = [$legacyVisionText];
+            }
+        }
+
+        $values = array_values(array_filter(array_map(
+            static function (mixed $item): array {
+                $value = is_array($item) ? $item : [];
+                $icon = (string) ($value['icon'] ?? 'fa-circle-check');
+
+                if ($icon !== '' && ! str_starts_with($icon, 'fa-')) {
+                    $icon = 'fa-'.$icon;
+                }
+
+                return [
+                    'icon' => $icon,
+                    'title' => (string) ($value['title'] ?? ''),
+                    'description' => (string) ($value['description'] ?? ''),
+                ];
+            },
+            $aboutPage->core_values_json ?? []
+        ), static fn (array $item): bool => $item['title'] !== '' || $item['description'] !== ''));
+
+        return view('web.about', [
+            'heroLabel' => $aboutPage->hero_subtitle,
+            'heroTitle' => $aboutPage->hero_title,
+            'heroSubtitle' => $aboutPage->hero_subtitle,
+            'introText' => $aboutPage->intro_text,
+            'stats' => $stats,
+            'visionLabel' => 'Visi Kami',
+            'visionItems' => $visionItems,
+            'visionText' => $visionItems[0] ?? '',
+            'missionLabel' => 'Misi Kami',
+            'mission' => $mission,
+            'values' => $values,
+            'ctaTitle' => $aboutPage->cta_title,
+            'ctaDescription' => $aboutPage->cta_description,
+            'ctaLabel' => $aboutPage->cta_label,
+            'ctaUrl' => $aboutPage->cta_url,
+        ]);
     }
 
     public function services(): View
     {
-        $mainServices = [
-            [
-                'id' => 1,
-                'icon' => 'fa-user-tie',
-                'title' => 'Konsultasi Pajak Personal',
-                'description' => 'Layanan konsultasi perpajakan untuk individu, termasuk perencanaan pajak, pelaporan SPT, dan penyelesaian sengketa pajak.',
-                'features' => [
-                    'Perencanaan pajak tahunan',
-                    'Penyusunan SPT Tahunan PPh 21',
-                    'Konsultasi harta dan warisan',
-                    'Pengurangan pajak dan kredit',
-                    'Penyelesaian ketidaksesuaian dengan DJP',
-                ],
-            ],
-            [
-                'id' => 2,
-                'icon' => 'fa-building',
-                'title' => 'Konsultasi Pajak Korporasi',
-                'description' => 'Solusi perpajakan komprehensif untuk perusahaan dari berbagai skala dan industri.',
-                'features' => [
-                    'Tax planning dan restructuring',
-                    'Penyusunan SPT Badan (PPh 25/29)',
-                    'Pengelolaan PPh 21, 23, 26',
-                    'Pembuatan e-Faktur dan pelaporan PPN',
-                    'Transfer pricing documentation',
-                ],
-            ],
-            [
-                'id' => 3,
-                'icon' => 'fa-file-contract',
-                'title' => 'Pendampingan Pemeriksaan Pajak',
-                'description' => 'Representasi profesional selama proses pemeriksaan pajak dan penyelesaian sengketa.',
-                'features' => [
-                    'Persiapan dokumen pemeriksaan',
-                    'Pendampingan selama pemeriksaan lapangan',
-                    'Penyusunan keberatan (objeksi)',
-                    'Proses banding dan gugatan pajak',
-                    'Negosiasi dengan fiskus',
-                ],
-            ],
-            [
-                'id' => 4,
-                'icon' => 'fa-graduation-cap',
-                'title' => 'Pelatihan dan Workshop',
-                'description' => 'Program edukasi perpajakan untuk meningkatkan kompetensi tim Anda.',
-                'features' => [
-                    'In-house training perusahaan',
-                    'Workshop perpajakan terbuka',
-                    'Sertifikasi Brevet Pajak A/B/C',
-                    'Konsultasi khusus per industri',
-                    'Update regulasi berkala',
-                ],
-            ],
-        ];
+        $page = ServicesPage::find(1);
 
-        $additionalServices = [
-            [
-                'icon' => 'fa-search',
-                'title' => 'Tax Review',
-                'description' => 'Audit internal kewajiban perpajakan untuk identifikasi risiko',
-            ],
-            [
-                'icon' => 'fa-balance-scale',
-                'title' => 'Kepatuhan Pajak',
-                'description' => 'Pemetaan dan penanganan risiko kepatuhan perpajakan',
-            ],
-            [
-                'icon' => 'fa-globe',
-                'title' => 'Pajak Internasional',
-                'description' => 'Konsultasi perpajakan lintas negara dan double taxation',
-            ],
-            [
-                'icon' => 'fa-laptop-code',
-                'title' => 'Otomatisasi Pajak',
-                'description' => 'Implementasi sistem perpajakan digital untuk efisiensi',
-            ],
-        ];
+        if ($page === null || ! $page->is_published) {
+            abort(404);
+        }
 
-        $processSteps = [
-            [
-                'number' => '01',
-                'title' => 'Konsultasi Awal',
-                'description' => 'Diskusi untuk memahami kebutuhan dan situasi perpajakan Anda',
-            ],
-            [
-                'number' => '02',
-                'title' => 'Analisis',
-                'description' => 'Evaluasi mendalam terhadap dokumen dan kewajiban pajak',
-            ],
-            [
-                'number' => '03',
-                'title' => 'Solusi',
-                'description' => 'Penyusunan strategi dan rekomendasi optimal',
-            ],
-            [
-                'number' => '04',
-                'title' => 'Implementasi',
-                'description' => 'Eksekusi solusi dengan pendampingan penuh',
-            ],
-        ];
+        $mainServices = array_values(array_filter(array_map(
+            static function (mixed $item): ?array {
+                if (! is_array($item)) {
+                    return null;
+                }
 
-        return view('web.services', compact(
-            'mainServices',
-            'additionalServices',
-            'processSteps'
-        ));
+                $title = trim((string) ($item['title'] ?? ''));
+                $description = trim((string) ($item['description'] ?? ''));
+
+                if ($title === '' && $description === '') {
+                    return null;
+                }
+
+                $icon = trim((string) ($item['icon'] ?? ''));
+                if ($icon !== '' && ! str_starts_with($icon, 'fa-')) {
+                    $icon = 'fa-'.$icon;
+                }
+
+                $features = isset($item['features']) && is_array($item['features'])
+                    ? $item['features']
+                    : [];
+
+                $features = array_values(array_filter(
+                    $features,
+                    static fn (mixed $f): bool => is_string($f) && trim($f) !== ''
+                ));
+
+                return [
+                    'id' => $item['id'] ?? null,
+                    'icon' => $icon,
+                    'title' => $title,
+                    'description' => $description,
+                    'features' => $features,
+                ];
+            },
+            $page->main_services_json ?? []
+        )));
+
+        return view('web.services', [
+            'heroBadge' => $page->hero_badge,
+            'heroTitle' => $page->hero_title,
+            'heroHighlight' => $page->hero_highlight,
+            'heroDescription' => $page->hero_description,
+            'mainServices' => $mainServices,
+        ]);
     }
 
     public function contact(): View

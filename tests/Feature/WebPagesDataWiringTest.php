@@ -58,6 +58,11 @@ it('uses hero fallback and renders home sections with real data', function (): v
     $response->assertSeeText('Kegiatan Pajak Nasional');
     $response->assertSeeText('Rekomendasi Artikel');
     $response->assertSeeText('Galeri Kegiatan');
+    $response->assertSee('id="slider" class="relative mx-auto h-[280px] w-full overflow-hidden rounded-2xl bg-primary-600 shadow-lg sm:h-[320px] md:h-[360px]"', false);
+    $response->assertSee('class="mt-3 text-xl font-bold leading-tight text-balance sm:text-2xl md:text-4xl"', false);
+    $response->assertSee('class="mt-4 inline-flex min-h-[44px] items-center justify-center rounded-md bg-accent px-4 py-2.5 text-sm font-semibold text-primary-700 transition hover:bg-accent/90 sm:px-6"', false);
+    $response->assertSee('class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"', false);
+    $response->assertSee('id="prevSlide" class="absolute left-2 top-1/2 inline-flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full bg-neutral/85 px-3 py-2 text-primary-700 shadow transition hover:bg-neutral sm:left-4"', false);
 });
 
 it('applies article filters and keeps query string in pagination links', function (): void {
@@ -156,6 +161,13 @@ it('uses whatsapp quick action when configured and mailto fallback when whatsapp
     $whatsappResponse->assertOk();
     $whatsappResponse->assertSee('https://wa.me/6281234567890');
     $whatsappResponse->assertSeeText('Chat WhatsApp');
+    $whatsappResponse->assertSee('class="bg-gradient-to-br from-primary-700 to-primary-600 py-12 md:py-24"', false);
+    $whatsappResponse->assertSee('class="text-2xl font-extrabold text-white text-balance sm:text-3xl md:text-5xl"', false);
+    $whatsappResponse->assertSee('class="grid gap-6 overflow-x-clip lg:grid-cols-2 lg:gap-8"', false);
+    $whatsappResponse->assertSee('class="rounded-2xl bg-white p-4 shadow-lg sm:p-6 md:p-8"', false);
+    $whatsappResponse->assertSee('class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm text-primary-700 placeholder-slate-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 sm:px-4 sm:py-3"', false);
+    $whatsappResponse->assertSee('class="overflow-x-clip py-12 sm:py-16" data-faq-accordion', false);
+    $whatsappResponse->assertSee('class="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition hover:bg-slate-50 sm:px-5 sm:py-4"', false);
 
     $siteSetting = app(SiteSetting::class);
     $siteSetting->social_whatsapp = null;

@@ -9,8 +9,8 @@
         <div class="absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-secondary-500 blur-3xl"></div>
     </div>
 
-    <div class="relative mx-auto max-w-7xl px-4 py-16 md:py-20">
-        <nav class="mb-6 flex flex-wrap items-center gap-2 text-sm text-white/70">
+    <div class="relative mx-auto max-w-7xl px-3 py-12 sm:px-4 sm:py-16 md:py-20">
+        <nav class="mb-5 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-white/70 sm:mb-6 sm:text-sm">
             <a href="{{ Route::has('home') ? route('home') : '/' }}" class="transition hover:text-accent">Beranda</a>
             <i class="fa-solid fa-chevron-right text-xs"></i>
             <a href="{{ route('activities.index') }}" class="transition hover:text-accent">Aktifitas</a>
@@ -18,7 +18,7 @@
             <span class="text-accent">Detail</span>
         </nav>
 
-        <h1 class="max-w-4xl text-3xl font-extrabold leading-tight text-white md:text-5xl">
+        <h1 class="max-w-4xl break-words text-2xl font-extrabold leading-tight text-white sm:text-3xl md:text-5xl">
             {{ $activity->title }}
         </h1>
     </div>
@@ -30,15 +30,15 @@
     </div>
 </section>
 
-<section class="bg-slate-50 py-16">
-    <div class="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-3">
-        <div class="rounded-2xl bg-white p-6 shadow-sm lg:col-span-1">
+<section class="bg-slate-50 py-10 sm:py-12 md:py-16">
+    <div class="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-3 sm:gap-6 sm:px-4 lg:grid-cols-3 lg:gap-8">
+        <div class="min-w-0 rounded-2xl bg-white p-4 shadow-sm sm:p-6 lg:col-span-1">
             <h2 class="mb-5 text-lg font-bold text-primary-700">Informasi Kegiatan</h2>
 
             <div class="space-y-5 text-sm text-slate-600">
                 <div>
                     <p class="mb-1 font-semibold text-primary-700">Waktu Pelaksanaan</p>
-                    <p class="inline-flex items-center gap-2">
+                    <p class="inline-flex min-w-0 items-center gap-2 break-words">
                         <i class="fa-solid fa-calendar-days text-accent"></i>
                         <span>{{ optional($activity->held_at)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</span>
                     </p>
@@ -46,7 +46,7 @@
 
                 <div>
                     <p class="mb-1 font-semibold text-primary-700">Deskripsi Lokasi</p>
-                    <p class="inline-flex items-start gap-2">
+                    <p class="inline-flex min-w-0 items-start gap-2 break-words">
                         <i class="fa-solid fa-location-dot mt-0.5 text-accent"></i>
                         <span>{{ $locationDescription }}</span>
                     </p>
@@ -54,26 +54,26 @@
             </div>
         </div>
 
-        <div class="rounded-2xl bg-white p-6 shadow-sm lg:col-span-2">
+        <div class="min-w-0 rounded-2xl bg-white p-4 shadow-sm sm:p-6 lg:col-span-2">
             <h2 class="mb-4 text-lg font-bold text-primary-700">Deskripsi Kegiatan</h2>
-            <div class="prose prose-slate max-w-none text-slate-700">
+            <div class="prose prose-slate max-w-none break-words text-sm text-slate-700 sm:text-base">
                 {!! nl2br(e($activity->description)) !!}
             </div>
         </div>
     </div>
 </section>
 
-<section class="bg-white py-16">
-    <div class="mx-auto max-w-7xl px-4">
+<section class="bg-white py-10 sm:py-12 md:py-16">
+    <div class="mx-auto max-w-7xl px-3 sm:px-4">
         <div class="mb-8">
             <h2 class="text-2xl font-extrabold text-primary-700 md:text-3xl">Galeri Dokumentasi</h2>
             <p class="mt-2 text-slate-600">Dokumentasi visual kegiatan yang tersimpan pada sistem.</p>
         </div>
 
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             @forelse($gallery as $image)
                 <figure class="overflow-hidden rounded-xl bg-slate-100 shadow-sm">
-                    <img src="{{ $image['url'] }}" alt="{{ $image['caption'] ?: $activity->title }}" class="h-56 w-full object-cover">
+                    <img src="{{ $image['url'] }}" alt="{{ $image['caption'] ?: $activity->title }}" class="h-48 w-full object-cover sm:h-56 md:h-64">
                     @if($image['caption'])
                         <figcaption class="border-t border-slate-200 px-4 py-3 text-sm text-slate-600">
                             {{ $image['caption'] }}
