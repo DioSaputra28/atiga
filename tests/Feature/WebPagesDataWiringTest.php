@@ -152,7 +152,7 @@ it('applies article filters and keeps query string in pagination links', functio
 
 it('uses whatsapp quick action when configured and mailto fallback when whatsapp is absent', function (): void {
     $siteSetting = app(SiteSetting::class);
-    $siteSetting->social_whatsapp = '+62 812-3456-7890';
+    $siteSetting->social_whatsapp = '6281234567890';
     $siteSetting->company_email = 'support@atiga.test';
     $siteSetting->save();
 
@@ -160,6 +160,7 @@ it('uses whatsapp quick action when configured and mailto fallback when whatsapp
 
     $whatsappResponse->assertOk();
     $whatsappResponse->assertSee('https://wa.me/6281234567890');
+    $whatsappResponse->assertSeeText('+6281234567890');
     $whatsappResponse->assertSeeText('Chat WhatsApp');
     $whatsappResponse->assertSee('class="bg-gradient-to-br from-primary-700 to-primary-600 py-12 md:py-24"', false);
     $whatsappResponse->assertSee('class="text-2xl font-extrabold text-white text-balance sm:text-3xl md:text-5xl"', false);

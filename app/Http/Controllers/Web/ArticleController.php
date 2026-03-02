@@ -332,11 +332,11 @@ class ArticleController extends Controller
             ];
         }
 
-        if (filled(site_social_whatsapp(''))) {
+        if (filled(site_social_whatsapp_number(''))) {
             $links[] = [
                 'label' => 'WhatsApp',
                 'icon' => 'fa-brands fa-whatsapp',
-                'url' => 'https://api.whatsapp.com/send?text='.$encodedTitle.'%20'.$encodedArticleUrl,
+                'url' => 'https://wa.me/?text='.$encodedTitle.'%20'.$encodedArticleUrl,
             ];
         }
 

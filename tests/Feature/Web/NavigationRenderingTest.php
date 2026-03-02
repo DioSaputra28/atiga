@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Web;
 
+use App\Models\AboutPage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -39,5 +40,31 @@ class NavigationRenderingTest extends TestCase
         $response->assertSee('id="mobile-menu"', false);
 
         $response->assertSee('py-3');
+    }
+
+    public function test_about_navigation_link_is_hidden_when_about_page_is_unpublished(): void
+    {
+        AboutPage::factory()->create([
+            'is_published' => false,
+        ]);
+
+        $response = $this->get('/');
+
+        $response->assertSuccessful();
+        $response->assertDontSee('href="'.route('about', [], false).'"', false);
+        $response->assertDontSeeText('Tentang Kami');
+    }
+
+    public function test_about_navigation_link_is_visible_when_about_page_is_published(): void
+    {
+        AboutPage::factory()->create([
+            'is_published' => true,
+        ]);
+
+        $response = $this->get('/');
+
+        $response->assertSuccessful();
+        $response->assertSee('href="'.route('about', [], false).'"', false);
+        $response->assertSeeText('Tentang Kami');
     }
 }

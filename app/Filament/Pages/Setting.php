@@ -110,8 +110,13 @@ class Setting extends SettingsPage
                         ->schema([
                             TextInput::make('social_whatsapp')
                                 ->label('WhatsApp')
-                                ->url()
-                                ->helperText('Contoh: https://wa.me/6281234567890'),
+                                ->tel()
+                                ->maxLength(20)
+                                ->rules(['nullable', 'regex:/^\d+$/'])
+                                ->validationMessages([
+                                    'regex' => 'Masukkan nomor WhatsApp dalam angka saja tanpa spasi/simbol.',
+                                ])
+                                ->helperText('Contoh: 6281234567890 (angka saja, tanpa +, spasi, atau tanda baca).'),
                             TextInput::make('social_tiktok')
                                 ->label('TikTok')
                                 ->url()

@@ -15,7 +15,7 @@ use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
@@ -51,16 +51,9 @@ class BannerResource extends Resource
                         TextInput::make('title')
                             ->required()
                             ->helperText('Masukkan judul banner yang deskriptif dan mudah diidentifikasi'),
-                        Select::make('type')
-                            ->required()
-                            ->default('hero')
-                            ->options([
-                                Banner::TYPE_HERO => 'Hero',
-                                Banner::TYPE_SIDEBAR => 'Sidebar',
-                                Banner::TYPE_POPUP => 'Popup',
-                                Banner::TYPE_FOOTER => 'Footer',
-                            ])
-                            ->helperText('Tipe banner, contoh: hero, sidebar, footer, popup'),
+                        Hidden::make('type')
+                            ->default(Banner::TYPE_HERO)
+                            ->required(),
                         FileUpload::make('image_path')
                             ->image()
                             ->disk('public')

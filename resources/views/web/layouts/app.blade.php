@@ -52,6 +52,30 @@
         @include('web.layouts.footer')
     </div>
 
+    @php
+        $whatsappDigits = site_social_whatsapp_number('');
+    @endphp
+
+    @if ($whatsappDigits !== '')
+        <div class="fixed bottom-4 right-4 z-50 flex max-w-[calc(100vw-2rem)] items-center sm:bottom-6 sm:right-6">
+            <a
+                href="{{ 'https://wa.me/' . $whatsappDigits }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group relative inline-flex min-h-[44px] items-center gap-3 rounded-full bg-primary-700 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-primary-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/30"
+            >
+                <span class="relative flex size-9 items-center justify-center rounded-full bg-white/10">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span class="absolute -right-0.5 -top-0.5 flex size-3">
+                        <span class="absolute inline-flex h-full w-full rounded-full bg-accent/80 motion-safe:animate-ping"></span>
+                        <span class="relative inline-flex size-3 rounded-full bg-accent ring-2 ring-white/70"></span>
+                    </span>
+                </span>
+                <span class="whitespace-nowrap">Chat WhatsApp</span>
+            </a>
+        </div>
+    @endif
+
     @stack('scripts')
 </body>
 </html>

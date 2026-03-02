@@ -155,14 +155,14 @@ class PageController extends Controller
 
     public function contact(): View
     {
-        $whatsappNumber = preg_replace('/\D+/', '', (string) site_social_whatsapp(''));
+        $whatsappNumber = site_social_whatsapp_number('');
         $companyEmail = site_company_email('');
 
         $contactInfo = [
             'address' => site_company_location(''),
             'address_detail' => '',
             'phone' => site_phone_number(''),
-            'whatsapp' => site_social_whatsapp(''),
+            'whatsapp' => site_social_whatsapp_display(''),
             'email' => $companyEmail,
             'hours' => site_operational_hours(''),
         ];

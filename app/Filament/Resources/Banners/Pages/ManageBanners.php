@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Banners\Pages;
 
 use App\Filament\Resources\Banners\BannerResource;
+use App\Models\Banner;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 
@@ -15,6 +16,7 @@ class ManageBanners extends ManageRecords
         return [
             CreateAction::make()
                 ->mutateDataUsing(function (array $data): array {
+                    $data['type'] = Banner::TYPE_HERO;
                     $data['click_count'] ??= 0;
                     $data['view_count'] ??= 0;
 

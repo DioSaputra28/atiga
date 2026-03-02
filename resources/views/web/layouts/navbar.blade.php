@@ -2,11 +2,21 @@
     $companyName = site_company_name('Atiga');
     $companyLogo = site_company_logo();
     $companyLogoUrl = null;
+    $showAboutNavigation = false;
 
     if (filled($companyLogo)) {
         $companyLogoUrl = str_starts_with($companyLogo, 'http://') || str_starts_with($companyLogo, 'https://')
             ? $companyLogo
             : \Illuminate\Support\Facades\Storage::url($companyLogo);
+    }
+
+    try {
+        $showAboutNavigation = \App\Models\AboutPage::query()
+            ->whereKey(1)
+            ->where('is_published', true)
+            ->exists();
+    } catch (\Throwable) {
+        $showAboutNavigation = false;
     }
 @endphp
 
@@ -66,10 +76,12 @@ $activitiesRoute = Route::has('activities.index') ? route('activities.index', []
                class="transition hover:text-secondary-500 {{ request()->routeIs('home') ? 'text-secondary-500' : '' }}">
                 Beranda
             </a>
-            <a href="{{ $aboutRoute }}"
-               class="transition hover:text-secondary-500 {{ request()->routeIs('about') ? 'text-secondary-500' : '' }}">
-                Tentang Kami
-            </a>
+            @if ($showAboutNavigation)
+                <a href="{{ $aboutRoute }}"
+                   class="transition hover:text-secondary-500 {{ request()->routeIs('about') ? 'text-secondary-500' : '' }}">
+                    Tentang Kami
+                </a>
+            @endif
             <a href="{{ $servicesRoute }}"
                class="transition hover:text-secondary-500 {{ request()->routeIs('services') ? 'text-secondary-500' : '' }}">
                 Layanan
@@ -115,10 +127,12 @@ $activitiesRoute = Route::has('activities.index') ? route('activities.index', []
                    class="rounded-md px-3 py-3 text-sm font-medium transition {{ request()->routeIs('home') ? 'bg-primary-600 text-secondary-500' : 'text-white hover:bg-primary-600 hover:text-secondary-500' }}">
                     <i class="fa-solid fa-house mr-2 w-5"></i> Beranda
                 </a>
-                <a href="{{ $aboutRoute }}"
-                   class="rounded-md px-3 py-3 text-sm font-medium transition {{ request()->routeIs('about') ? 'bg-primary-600 text-secondary-500' : 'text-white hover:bg-primary-600 hover:text-secondary-500' }}">
-                    <i class="fa-solid fa-circle-info mr-2 w-5"></i> Tentang Kami
-                </a>
+                @if ($showAboutNavigation)
+                    <a href="{{ $aboutRoute }}"
+                       class="rounded-md px-3 py-3 text-sm font-medium transition {{ request()->routeIs('about') ? 'bg-primary-600 text-secondary-500' : 'text-white hover:bg-primary-600 hover:text-secondary-500' }}">
+                        <i class="fa-solid fa-circle-info mr-2 w-5"></i> Tentang Kami
+                    </a>
+                @endif
                 <a href="{{ $servicesRoute }}"
                    class="rounded-md px-3 py-3 text-sm font-medium transition {{ request()->routeIs('services') ? 'bg-primary-600 text-secondary-500' : 'text-white hover:bg-primary-600 hover:text-secondary-500' }}">
                     <i class="fa-solid fa-briefcase mr-2 w-5"></i> Layanan

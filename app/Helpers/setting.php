@@ -78,6 +78,32 @@ if (! function_exists('site_social_whatsapp')) {
     }
 }
 
+if (! function_exists('site_social_whatsapp_number')) {
+    function site_social_whatsapp_number(?string $default = null): ?string
+    {
+        $number = preg_replace('/\D+/', '', (string) site_social_whatsapp(''));
+
+        if ($number === '') {
+            return $default;
+        }
+
+        return $number;
+    }
+}
+
+if (! function_exists('site_social_whatsapp_display')) {
+    function site_social_whatsapp_display(?string $default = null): ?string
+    {
+        $number = site_social_whatsapp_number();
+
+        if ($number === null || $number === '') {
+            return $default;
+        }
+
+        return '+'.$number;
+    }
+}
+
 if (! function_exists('site_social_tiktok')) {
     function site_social_tiktok(?string $default = null): ?string
     {
