@@ -12,10 +12,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        $driver = DB::getDriverName();
+
         if (! Schema::hasColumn('about_pages', 'vision_json')) {
             Schema::table('about_pages', function (Blueprint $table): void {
-                $table->json('vision_json')->default(json_encode([]));
+                $table->json('vision_json');
             });
+
+            if ($driver === 'mysql') {
+                DB::statement('ALTER TABLE about_pages MODIFY vision_json JSON NOT NULL DEFAULT (JSON_ARRAY())');
+            }
+
+            if ($driver === 'pgsql') {
+                DB::statement("ALTER TABLE about_pages ALTER COLUMN vision_json SET DEFAULT '[]'::json");
+            }
         }
 
         if (Schema::hasColumn('about_pages', 'vision_text') && Schema::hasColumn('about_pages', 'vision_json')) {
