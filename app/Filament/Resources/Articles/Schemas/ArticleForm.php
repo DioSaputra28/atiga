@@ -35,6 +35,12 @@ class ArticleForm
                                 ->relationship('user', 'name')
                                 ->required()
                                 ->helperText('Pilih penulis artikel'),
+                            Select::make('tags')
+                                ->relationship('tags', 'name')
+                                ->multiple()
+                                ->searchable()
+                                ->preload()
+                                ->helperText('Pilih satu atau lebih tag untuk artikel'),
                             TextInput::make('title')
                                 ->required()
                                 ->helperText('Judul artikel yang akan ditampilkan')
@@ -67,6 +73,7 @@ class ArticleForm
                                 ->required()
                                 ->helperText('Tandai untuk mempublikasikan artikel'),
                             DateTimePicker::make('published_at')
+                                ->timezone(config('app.timezone'))
                                 ->helperText('Tanggal dan waktu publikasi artikel'),
                         ])
                         ->columns(2),

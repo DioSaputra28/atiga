@@ -3,6 +3,7 @@
 namespace Tests\Feature\Web;
 
 use App\Models\AboutPage;
+use App\Models\ServicesPage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -66,5 +67,47 @@ class NavigationRenderingTest extends TestCase
         $response->assertSuccessful();
         $response->assertSee('href="'.route('about', [], false).'"', false);
         $response->assertSeeText('Tentang Kami');
+    }
+
+    public function test_services_navigation_link_is_hidden_when_services_page_is_unpublished(): void
+    {
+        ServicesPage::factory()->create([
+            'is_published' => false,
+        ]);
+
+        $response = $this->get('/');
+
+        $response->assertSuccessful();
+
+        $content = $response->getContent();
+        $matched = preg_match('/<nav[^>]*id="main-nav"[^>]*>.*?<\/nav>/s', $content, $matches);
+
+        self::assertSame(1, $matched);
+
+        $navbarHtml = $matches[0];
+
+        self::assertStringNotContainsString('href="'.route('services', [], false).'"', $navbarHtml);
+        self::assertSame(0, preg_match('/>\s*Layanan\s*</', $navbarHtml));
+    }
+
+    public function test_services_navigation_link_is_visible_when_services_page_is_published(): void
+    {
+        ServicesPage::factory()->create([
+            'is_published' => true,
+        ]);
+
+        $response = $this->get('/');
+
+        $response->assertSuccessful();
+
+        $content = $response->getContent();
+        $matched = preg_match('/<nav[^>]*id="main-nav"[^>]*>.*?<\/nav>/s', $content, $matches);
+
+        self::assertSame(1, $matched);
+
+        $navbarHtml = $matches[0];
+
+        self::assertStringContainsString('href="'.route('services', [], false).'"', $navbarHtml);
+        self::assertSame(1, preg_match('/>\s*Layanan\s*</', $navbarHtml));
     }
 }

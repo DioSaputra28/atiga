@@ -3,6 +3,7 @@
     $companyLogo = site_company_logo();
     $companyLogoUrl = null;
     $showAboutNavigation = false;
+    $showServicesNavigation = false;
 
     if (filled($companyLogo)) {
         $companyLogoUrl = str_starts_with($companyLogo, 'http://') || str_starts_with($companyLogo, 'https://')
@@ -17,6 +18,15 @@
             ->exists();
     } catch (\Throwable) {
         $showAboutNavigation = false;
+    }
+
+    try {
+        $showServicesNavigation = \App\Models\ServicesPage::query()
+            ->whereKey(1)
+            ->where('is_published', true)
+            ->exists();
+    } catch (\Throwable) {
+        $showServicesNavigation = false;
     }
 @endphp
 
@@ -82,10 +92,12 @@ $activitiesRoute = Route::has('activities.index') ? route('activities.index', []
                     Tentang Kami
                 </a>
             @endif
-            <a href="{{ $servicesRoute }}"
-               class="transition hover:text-secondary-500 {{ request()->routeIs('services') ? 'text-secondary-500' : '' }}">
-                Layanan
-            </a>
+            @if ($showServicesNavigation)
+                <a href="{{ $servicesRoute }}"
+                   class="transition hover:text-secondary-500 {{ request()->routeIs('services') ? 'text-secondary-500' : '' }}">
+                    Layanan
+                </a>
+            @endif
             <a href="{{ $contactRoute }}"
                class="transition hover:text-secondary-500 {{ request()->routeIs('contact') ? 'text-secondary-500' : '' }}">
                 Kontak
@@ -133,10 +145,12 @@ $activitiesRoute = Route::has('activities.index') ? route('activities.index', []
                         <i class="fa-solid fa-circle-info mr-2 w-5"></i> Tentang Kami
                     </a>
                 @endif
-                <a href="{{ $servicesRoute }}"
-                   class="rounded-md px-3 py-3 text-sm font-medium transition {{ request()->routeIs('services') ? 'bg-primary-600 text-secondary-500' : 'text-white hover:bg-primary-600 hover:text-secondary-500' }}">
-                    <i class="fa-solid fa-briefcase mr-2 w-5"></i> Layanan
-                </a>
+                @if ($showServicesNavigation)
+                    <a href="{{ $servicesRoute }}"
+                       class="rounded-md px-3 py-3 text-sm font-medium transition {{ request()->routeIs('services') ? 'bg-primary-600 text-secondary-500' : 'text-white hover:bg-primary-600 hover:text-secondary-500' }}">
+                        <i class="fa-solid fa-briefcase mr-2 w-5"></i> Layanan
+                    </a>
+                @endif
                 <a href="{{ $contactRoute }}"
                    class="rounded-md px-3 py-3 text-sm font-medium transition {{ request()->routeIs('contact') ? 'bg-primary-600 text-secondary-500' : 'text-white hover:bg-primary-600 hover:text-secondary-500' }}">
                     <i class="fa-solid fa-envelope mr-2 w-5"></i> Kontak

@@ -86,6 +86,7 @@ class TaxRegulationResource extends Resource
                     ->helperText('Aktifkan untuk menayangkan regulasi di halaman publik.'),
                 DateTimePicker::make('published_at')
                     ->label('Tanggal Publikasi')
+                    ->timezone(config('app.timezone'))
                     ->beforeOrEqual('now')
                     ->validationMessages([
                         'before_or_equal' => 'Tanggal publikasi tidak boleh melebihi waktu saat ini.',
