@@ -7,6 +7,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
@@ -26,8 +27,8 @@ class ArticlesTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                TextColumn::make('thumbnail')
-                    ->searchable(),
+                ImageColumn::make('thumbnail')
+                    ->disk('public'),
                 ToggleColumn::make('is_highlighted'),
                 ToggleColumn::make('is_published'),
                 TextColumn::make('published_at')
